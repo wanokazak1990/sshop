@@ -1,0 +1,13 @@
+.section-gallery{
+	background: #333;
+}
+
+
+.section-gallery img{
+	transition: transform 0.3s linear, filter 0.3s linear !important;
+	filter: grayscale(0.7);
+}
+.section-gallery img:hover{
+	transform: scale(1.1,1.1);
+	filter: grayscale(0);
+}

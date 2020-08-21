@@ -1,0 +1,20 @@
+.header .top{
+	background: #eee;
+}
+.about-menu a{
+	color: #999;
+	font-size:0.8rem;
+}
+.auth-menu a{
+	color: #333;
+	font-size:0.8rem;
+}
+.header .top a{
+	transition: color 0.3s linear;
+}
+.header .top a:hover{
+	color: #000;
+}
+.logo img{
+	width: 90%;
+}

@@ -1,0 +1,38 @@
+// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+//MAIN
+@import 'main';
+
+//Header
+@import 'header';
+
+//Navbar
+@import 'navbar';
+
+//Banner
+@import 'banners';
+
+//Product
+@import 'product';
+
+//ActionSlider
+@import 'actionslider';
+
+//BlogSlider
+@import 'blogslider';
+
+//SaleSlider
+@import 'saleslider';
+
+//SectionGallery
+@import 'sectiongallery';
+

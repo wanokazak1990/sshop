@@ -1,0 +1,25 @@
+.blog-slider img{
+	width:100%;
+}
+.slick-current .wrap{
+	margin-left:0px !important;
+}
+
+.blog-slider .wrap{
+	border-radius: 5px;
+	overflow:hidden;
+	background: #fff;
+}
+
+.blog-slider .date{
+	font-size: 0.7rem;
+	color: #999;
+}
+
+.blog-slider .title{
+	padding: 5px 0;
+}
+
+.blog-slider .desc{
+	font-weight: 100;
+}

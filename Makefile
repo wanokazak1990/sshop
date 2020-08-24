@@ -76,9 +76,4 @@ laravel-migrate:
 composer-update:
 	sudo docker exec php-f-sshop composer update
 
-
-
-
-
-  
-    
+#test

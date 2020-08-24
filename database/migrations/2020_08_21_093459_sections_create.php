@@ -19,7 +19,9 @@ class SectionsCreate extends Migration
             $table->string('name',100);
             $table->string('slug',100);
             $table->string('img');
-            $table->integer('parent')->default(0);
+            $table->integer('parent_id')->nullable()->unsigned()->index();
+            $table->integer('sort')->default(0);
+            $table->boolean('live')->default(true);
         });
     }
 

@@ -1,15 +1,15 @@
 <div class="col mb-4">
     <div class="card h-100">
     	<div class="product-img">
-      		<img src="{{asset('storage/action/'.$i.'.jpg')}}" class="card-img-top" alt="...">
+      		<img src="{{asset('storage/products/'.$i.'.jpg')}}" class="card-img-top" alt="...">
       		<div class="product-viewer">
       			Подробнее
       		</div>
       	</div>
       	<div class="card-body">
        		<h5 class="card-title">Розовая вибробабочка с фаллосом на регулируемых ремешках</h5>
-       		
-       		
+
+
 
        		<div class="desc">
 	        	<div class="row border-bottom">
@@ -28,9 +28,9 @@
 
 	       	<div class="articule">
       			Артикул: 9434232
-      		</div>       
+      		</div>
       	</div>
-      	
+
       	<div class="card-footer">
   			<button class="btn btn-block btn-push-card">В корзину</button>
 	  	</div>

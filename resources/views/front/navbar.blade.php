@@ -6,71 +6,33 @@
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
-	    
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Секс-игрушки
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
 
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Интим косметика
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
+            @foreach ($sectionItems as $itemSection)
+                @if(isset($itemSection->children))
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ $itemSection->name }}
+                        </a>
 
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Эротическая одежда
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach ($itemSection->children as $itemChild)
 
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Презервативы
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
+                                <a class="dropdown-item" href="#">{{ $itemChild->name }}</a>
 
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Смазки и гели
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>	
+                            @endforeach
+                        </div>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">-{{ $itemSection->name }}</a>
+                    </li>
+                @endif
 
+            @endforeach
 	    </ul>
 
 	    <ul class="navbar-nav ml-auto">
-	    	
+
 		    <li class="nav-item">
 		        <a class="nav-link" href="#">Акции</a>
 		    </li>
@@ -87,9 +49,11 @@
 		          <div class="dropdown-divider"></div>
 		          <a class="dropdown-item" href="#">Something else here</a>
 		        </div>
-		    </li>	
+		    </li>
 	  	</ul>
 
 	  </div>
 	</div>
 </nav>
+
+

@@ -15,6 +15,9 @@ require('justifiedGallery');
 require('justifiedGallery/dist/css/justifiedGallery.css');
 require('./justifiedGallery-config');
 
+require('./function')
+require('./admin/btn-del');
+
 
 
 

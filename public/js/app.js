@@ -42342,6 +42342,30 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/admin/btn-del.js":
+/*!***************************************!*\
+  !*** ./resources/js/admin/btn-del.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.btn-del').on('click', function () {
+    var url = $(this).attr('data-url');
+    var status = confirm('Удалить эту запись?');
+
+    if (status) {
+      axios["delete"](url).then(function (response) {
+        alert('del');
+      })["catch"](function (error) {
+        alert(error);
+      });
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -42368,7 +42392,11 @@ __webpack_require__(/*! justifiedGallery */ "./node_modules/justifiedGallery/dis
 
 __webpack_require__(/*! justifiedGallery/dist/css/justifiedGallery.css */ "./node_modules/justifiedGallery/dist/css/justifiedGallery.css");
 
-__webpack_require__(/*! ./justifiedGallery-config */ "./resources/js/justifiedGallery-config.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./justifiedGallery-config */ "./resources/js/justifiedGallery-config.js");
+
+__webpack_require__(/*! ./function */ "./resources/js/function.js");
+
+__webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -42434,6 +42462,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/function.js":
+/*!**********************************!*\
+  !*** ./resources/js/function.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 

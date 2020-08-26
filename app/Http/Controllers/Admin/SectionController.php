@@ -5,41 +5,63 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Section;
+use App\Http\Requests\Admin\Sections\AddSectionRequest;
+use App\Http\ViewComposers\NavigationMenu;
+
 
 class SectionController extends Controller
 {
+    private function getEditableColumns()
+    {
+        return ['name','img','parent_id','live','sort'];
+    }
+
     public function index()
     {
-    	$sections = Section::get();
-    	dump($sections);
+    	$sections = Section::with('children')->where('parent_id',0)->get();
+    	return view('admin.sections.index',compact('sections'));
     }
 
     public function create()
     {
-    	echo "Section Create";
+        $parents = Section::where('parent_id',0)->get()->pluck('name','id');
+        $form = [
+            'route'=>'sections.store',
+            'method' => 'POST'
+        ];
+    	return view('admin.sections.create', compact('parents','form'));
     }
 
-    public function store(Request $request)
+    public function store(AddSectionRequest $request)
     {
-    	echo "Section Store";
+        $section = Section::create($request->only($this->getEditableColumns()));
+    	return redirect()->route('sections.index');
     }
 
-    public function edit($id)
+    public function edit(Section $section)
     {
-    	echo "Section edit";
+    	$parents = Section::where('parent_id',0)->get()->pluck('name','id');
+        $form = [
+            'route'=>['sections.update',$section],
+            'method' => 'PATCH'
+        ];
+        return view('admin.sections.create', compact('parents','section','form'));
     }
 
-    public function update($id, Request $request)
+    public function update(AddSectionRequest $request, Section $section)
     {
-    	echo "Section update";
+        $section->update($request->only($this->getEditableColumns()));
+        return redirect()->route('sections.index');
     }
 
-    public function destroy($id)
+    public function destroy(Section $section)
     {
-    	echo "Section destroy";
+        $id = $section->id;
+    	$section->delete();
+        return response()->json(['id'=>$id]);
     }
 
-    public function show($id)
+    public function show(Section $section)
     {
     	echo "Section Show";
     }

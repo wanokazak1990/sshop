@@ -11,6 +11,7 @@ class Section extends Model
         'name',
         'slug',
         'parent_id',
+        'sort',
         'live'
     ];
 

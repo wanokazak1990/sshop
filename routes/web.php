@@ -24,10 +24,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 		Route::get('/','SectionController@index')->name('sections.index');
 		Route::get('/create','SectionController@create')->name('sections.create');
 		Route::post('/','SectionController@store')->name('sections.store');
-		Route::get('/{id}/edit','SectionController@edit')->name('sections.edit');
-		Route::patch('/{id}','SectionController@update')->name('sections.update');
-		Route::delete('/{id}','SectionController@destroy')->name('sections.destroy');
-		Route::get('/{id}','SectionController@show')->name('sections.show');
+		Route::get('/{section}/edit','SectionController@edit')->name('sections.edit');
+		Route::patch('/{section}','SectionController@update')->name('sections.update');
+		Route::delete('/{section}','SectionController@destroy')->name('sections.destroy');
+		Route::get('/{section}','SectionController@show')->name('sections.show');
 	});
 
 });

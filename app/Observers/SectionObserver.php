@@ -17,6 +17,7 @@ class SectionObserver
     {
         $section->slug = Str::slug($section->name);
         $section->parent_id = request()->parent_id ? request()->parent_id : 0;
+        $section->live = request()->live ? 1 : 0;
     }
 
     /**

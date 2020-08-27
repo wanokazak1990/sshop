@@ -10,6 +10,7 @@ class Section extends Model
     protected $fillable = [
         'name',
         'slug',
+        'img',
         'parent_id',
         'sort',
         'live'

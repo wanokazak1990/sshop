@@ -42351,14 +42351,15 @@ module.exports = function(module) {
 
 $(document).ready(function () {
   $('.btn-del').on('click', function () {
+    var button = $(this);
     var url = $(this).attr('data-url');
     var status = confirm('Удалить эту запись?');
 
     if (status) {
       axios["delete"](url).then(function (response) {
-        alert('del');
+        button.closest('.remove-row').remove();
       })["catch"](function (error) {
-        alert(error);
+        console.log(error);
       });
     }
   });

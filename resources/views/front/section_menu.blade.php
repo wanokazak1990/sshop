@@ -2,22 +2,13 @@
 	<div class="container py-5">
 		<div class="row">
 			<div id="mygallery" >
-			    <a href="http://www.vk.com">
-			        <img alt="" src="{{asset('storage/sections/1.jpg')}}"/>
+
+				@foreach($sections as $itemSection)
+			    <a href="">
+			        <img alt="" src="{{asset($itemSection->url_image)}}"/>
 			    </a>
-			    <a href="http://www.vk.com">
-			        <img alt="" src="{{asset('storage/sections/2.jpg')}}"/>
-			    </a>
-			    <a href="http://www.vk.com">
-			        <img alt="" src="{{asset('storage/sections/3.jpg')}}"/>
-			    </a>
-			    <a href="http://www.vk.com">
-			        <img alt="" src="{{asset('storage/sections/4.jpg')}}"/>
-			    </a>
-			    <a href="http://www.vk.com">
-			        <img alt="" src="{{asset('storage/sections/6.jpg')}}"/>
-			    </a>
-			    <!-- other images... -->
+			    @endforeach
+
 			</div>
 		</div>
 	</div> 

@@ -63,9 +63,9 @@ class SectionController extends Controller
         $fileName = $image->prepare($section, $request->file('img'))
             ->resolution(800)
             ->quality(80)
-            ->deleteFile($section->img)
             ->saveSingle();
-        $section->update(['img'=>$fileName]);
+        if($fileName)
+            $section->update(['img'=>$fileName]);
         
         return redirect()->route('sections.index');
     }

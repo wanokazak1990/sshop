@@ -29,11 +29,12 @@ Class UploadImage
 
 	public function prepare(Model $model, $file)
 	{
+		$this->model = $model;
 
-		$this->path = storage_path('app/public').'/'.$model->getTable().'/'.$model->id;
+		$this->path = storage_path('app/public').'/'.$model->getTable().'/';
 		
 		$this->file = $file;
-        
+
         return $this;
 	}
 
@@ -57,12 +58,15 @@ Class UploadImage
 	{
 		if(!$this->file)
 			return;
-		$filename = $this->path.date('Ymd').Str::random(20) .'.' . $this->file->getClientOriginalExtension() ?: 'png';
+		if(file_exists($this->model->path_image))
+			$this->deleteFile($this->model->path_image);
+
+		$filename = date('Ymd').Str::random(20) .'.' . $this->file->getClientOriginalExtension() ?: 'png';
 		$img = Image::make($this->file);
 		$img->resize($this->x,$this->y, function ($constraint) {
 		    $constraint->aspectRatio();
-		})->save($filename, $this->quality);
+		})->save($this->path.$filename, $this->quality);
 		$this->reset();
-		return $filename;
+		return $img->basename;
 	}
 }

@@ -18,19 +18,12 @@ Route::group([],function(){
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
-	Route::get('/', 'MainController@index')->name('main');
 
-	Route::group(['prefix'=>'sections'],function(){
-		Route::get('/','SectionController@index')->name('sections.index');
-		Route::get('/create','SectionController@create')->name('sections.create');
-		Route::post('/','SectionController@store')->name('sections.store');
-		Route::get('/{section}/edit','SectionController@edit')->name('sections.edit');
-		Route::patch('/{section}','SectionController@update')->name('sections.update');
-		Route::delete('/{section}','SectionController@destroy')->name('sections.destroy');
-		Route::get('/{section}','SectionController@show')->name('sections.show');
-	});
-
+	Route::resource('sections', 'SectionController');
+	Route::resource('banners', 'BannerController');
+	
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

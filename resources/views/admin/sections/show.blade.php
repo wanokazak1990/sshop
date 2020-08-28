@@ -2,38 +2,45 @@
 
 @section('content')
 
+<div class="row">
+	<div class="col-8">
+		<div class="">
+		    {!! Form::label('name', 'Название раздела') !!}
+		    <div class="form-control">
+		    	{!!$section->name!!}
+		    </div>
+		</div>
 
-<div class="">
-    {!! Form::label('name', 'Название раздела') !!}
-    <div class="form-control">
-    	{!!$section->name!!}
-    </div>
-</div>
+		<div class="">
+		    {!! Form::label('parent_id', 'Родительская категория') !!}
+		    <div class="form-control">
+		    	{!! ($section->parent_id) ? $parents[$section->parent_id] : 'Главная категория' !!}
+		    </div>
+		</div>
 
-<div class="">
-    {!! Form::label('parent_id', 'Родительская категория') !!}
-    <div class="form-control">
-    	{!! ($section->parent_id) ? $parents[$section->parent_id] : 'Главная категория' !!}
-    </div>
-</div>
+		<div class="">
+			{!! Form::label('sort', 'Порядок сортировки') !!}
+			<div class="form-control">
+				{!!$section->sort!!}
+			</div>
+		</div>
 
-<div class="">
-	{!! Form::label('sort', 'Порядок сортировки') !!}
-	<div class="form-control">
-		{!!$section->sort!!}
+		<div class="">
+			{!! Form::label('live', 'Актуальность') !!}
+			<div class="form-control">
+				<span class="{{ ($section->live) ? 'fa fa-check-square-o' : 'fa fa-square-o'}}"></span>
+			</div>
+		</div>
 	</div>
-</div>
 
-<div class="">
-	{!! Form::label('live', 'Актуальность') !!}
-	<div class="form-control">
-		<span class="{{ ($section->live) ? 'fa fa-check-square-o' : 'fa fa-square-o'}}"></span>
+	<div class="col-4">
+
+		<div class="">
+			{!! Form::label('img','Изображение раздела') !!}
+			<img class="admin-section" src="{{isset($section->img) ? asset('storage/sections/'.$section->img) : ''}}">
+		</div>
+
 	</div>
-</div>
-
-<div class="">
-	{!! Form::label('img','Изображение раздела') !!}
-	{!! Form::file('img') !!}
 </div>
 
 <div class="row mt-3">

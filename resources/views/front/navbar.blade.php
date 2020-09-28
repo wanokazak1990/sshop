@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" >
+<!-- <nav class="navbar navbar-expand-lg navbar-light" >
 	<div class="container">
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
@@ -57,3 +57,57 @@
 </nav>
 
 
+ -->
+
+
+<nav class="container">
+  <ul class="top-menu">
+    <li><a href="">Главная</a></li>
+    <li class="dropdown-standart"><a href="" class="dropdown">Страницы</a>
+      <ul class="submenu-standart">
+        <li><a href="">Элемент списка</a></li>
+        <li><a href="">Элемент списка</a></li>
+        <li><a href="">Элемент списка</a></li>
+        <li><a href="">Элемент списка</a></li>
+        <li><a href="">Элемент списка</a></li>
+        <li><a href="">Элемент списка</a></li>
+      </ul>
+    </li>
+    <li><a href="" class="dropdown">Магазин</a>
+      <ul class="submenu">
+        
+        	<div class="row">
+        		<div class="col-4">
+        			1
+        		</div>
+        		<div class="col-4">
+        			2
+        		</div>
+        		<div class="col-4">
+        			3
+        		</div>
+        		<div class="col-4">
+        			4
+        		</div>
+        		<div class="col-4">
+        			5
+        		</div>
+        		<div class="col-4">
+        			6
+        		</div>
+        		<div class="col-4">
+        			7
+        		</div>
+        		<div class="col-4">
+        			8
+        		</div>
+        		<div class="col-4">
+        			9
+        		</div>
+        	</div>
+      </ul>
+    </li>
+    <li><a href="">Портфолио</a></li>
+    <li><a href="">Блог</a></li>
+  </ul>
+</nav>

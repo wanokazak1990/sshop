@@ -19,10 +19,7 @@ class CreateBanners extends Migration
             $table->string('title',200)->nullable();
             $table->string('description',400)->nullable();
             $table->string('img',200)->nullable();
-            $table->string('bgcolor',100)->nullable();
             $table->string('link',200)->nullable();
-            $table->boolean('button')->default(false);
-            $table->string('btncaption',200)->nullable();
         });
     }
 

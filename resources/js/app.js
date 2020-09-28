@@ -18,7 +18,8 @@ require('./justifiedGallery-config');
 require('./function')
 require('./admin/btn-del');
 
-
+require('jquery-match-height');
+require('./jquerymatchheight-config')
 
 
 

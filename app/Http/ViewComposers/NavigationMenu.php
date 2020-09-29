@@ -1,20 +1,20 @@
 <?php
 namespace App\Http\ViewComposers;
 
-use App\Models\Section;
+use App\Models\Category;
 use Illuminate\View\View;
 
 Class NavigationMenu{
 
     public function compose(View $view)
     {
-        $sectionItems = Section::isLive()
+        $categoryItems = Category::isLive()
             ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
             ->get();
 
-        $sectionItems = $this->buildTree($sectionItems);
+        $categoryItems = $this->buildTree($categoryItems);
 
-        return $view->with('sectionItems', $sectionItems);
+        return $view->with('categoryItems', $categoryItems);
     }
 
     public function buildTree($items)

@@ -1,22 +1,22 @@
-.section-gallery{
+.category-gallery{
 
 }
 
-.admin-section{
+.admin-category{
 	width:100%;
 }
 
-.section-menu img{
+.category-menu img{
 	transition: transform 0.3s linear, filter 0.3s linear !important;
 	filter: grayscale(0.7);
 	width:100%;
 }
 
 
-.section-menu a{
+.category-menu a{
 	text-decoration: none;
 }
-.section-menu .desc{
+.category-menu .desc{
 	font-family: "Roboto", sans-serif;
 	font-weight: 100;
 	background: #ae1359;
@@ -28,7 +28,7 @@
 	padding: 5px;
 }
 
-.section-menu img:hover{
+.category-menu img:hover{
 	filter: grayscale(0);
 	cursor: pointer;
 	z-index: 10;

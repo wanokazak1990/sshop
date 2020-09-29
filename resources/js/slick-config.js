@@ -26,7 +26,6 @@ $(document).ready(function(){
         {
             height = $(this).height()
         }
-        console.log($(this).height())
     })
     $('.blog-slider .wrap').height(height)
 

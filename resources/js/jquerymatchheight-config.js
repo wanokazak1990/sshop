@@ -1,3 +1,0 @@
-$(function() {
-	$('.submenu > li').matchHeight();
-});

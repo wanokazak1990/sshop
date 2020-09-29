@@ -73,6 +73,9 @@ laravel-migration:
 laravel-migrate:
 	sudo docker exec php-f-sshop php artisan migrate
 
+laravel-migrate-rollback:
+	sudo docker exec php-f-sshop php artisan migrate:rollback
+
 composer-update:
 	sudo docker exec php-f-sshop composer update
 

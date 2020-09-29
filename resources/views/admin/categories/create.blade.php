@@ -7,29 +7,29 @@
 	<div class="col-6">
 		<div class="">
 		    {!! Form::label('name', 'Название раздела') !!}
-		    {!! Form::text('name', isset($section->name) ? $section->name : '', ['class'=>'form-control']) !!}
+		    {!! Form::text('name', isset($category->name) ? $category->name : '', ['class'=>'form-control']) !!}
 		</div>
 
 		<div class="mt-3">
 		    {!! Form::label('parent_id', 'Родительская категория') !!}
-		    {!! Form::select('parent_id', $parents, isset($section->parent_id) ? $section->parent_id : 0, ['placeholder' => 'Нет род. категории', 'class'=>'form-control']); !!}
+		    {!! Form::select('parent_id', $parents, isset($category->parent_id) ? $category->parent_id : 0, ['placeholder' => 'Нет род. категории', 'class'=>'form-control']); !!}
 		</div>
 
 		<div class="mt-3">
 			{!! Form::label('sort', 'Порядок сортировки') !!}
-			{!! Form::number('sort', isset($section->sort) ? $section->sort : '',['class'=>'form-control']); !!}
+			{!! Form::number('sort', isset($category->sort) ? $category->sort : '',['class'=>'form-control']); !!}
 		</div>
 
 		<div class="mt-3">
 			{!! Form::label('live', 'Актуальность') !!}
-			{!! Form::checkbox('live', '1', isset($section->live) ? $section->live : '0') !!}
+			{!! Form::checkbox('live', '1', isset($category->live) ? $category->live : '0') !!}
 		</div>
 	</div>
 
 	<div class="col-4">
 		<div class="mt-3">
 			{!! Form::label('img','Изображение раздела') !!}<br/>
-			<img class="admin-section" src="{{isset($section->img) ? asset('storage/sections/'.$section->img) : ''}}">			
+			<img class="admin-category" src="{{isset($category->img) ? asset('storage/categories/'.$category->img) : ''}}">			
 		</div>
 	</div>
 
@@ -53,7 +53,7 @@
 	</div>
 
 	<div class="col-2"> 
-		<a class="btn btn-danger btn-block" href="{{route('sections.index')}}">Отмена</a>
+		<a class="btn btn-danger btn-block" href="{{route('categories.index')}}">Отмена</a>
 	</div>
 </div>
 

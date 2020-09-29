@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Category extends Model
 {
 
     protected $fillable = [
@@ -18,12 +18,12 @@ class Section extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Section::class,'parent_id');
+        return $this->belongsTo(Category::class,'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(Section::class,'parent_id');
+        return $this->hasMany(Category::class,'parent_id');
     }
 
     public function scopeIsLive($query)

@@ -7,7 +7,7 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 
-            @foreach ($sectionItems as $itemSection)
+            @foreach ($categoryItems as $itemSection)
                 @if(isset($itemSection->children))
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,7 +60,7 @@
  -->
 
 
-<nav class="container">
+<!-- <nav class="container">
   <ul class="top-menu">
     <li><a href="">Главная</a></li>
     <li class="dropdown-standart"><a href="" class="dropdown">Страницы</a>
@@ -110,4 +110,161 @@
     <li><a href="">Портфолио</a></li>
     <li><a href="">Блог</a></li>
   </ul>
-</nav>
+</nav> -->
+
+
+        <div class="cd-dropdown-wrapper">
+            <a class="cd-dropdown-trigger" href="#0">Выпадающее меню</a>
+            <nav class="cd-dropdown">
+                <h2>Заголовок</h2>
+                <a href="#0" class="cd-close">Закрыть</a>
+                <ul class="cd-dropdown-content">
+                    <li>
+                        <form class="cd-search">
+                            <input type="search" placeholder="Поиск...">
+                        </form>
+                    </li>
+                    <li class="has-children aim-main">
+                        <a href="#">Одежда</a>
+ 
+                        <ul class="cd-secondary-dropdown is-hidden">
+                            <li class="go-back"><a href="#0">Меню</a></li>
+                            <li class="see-all"><a href="#">Вся одежда</a></li>
+                            <li class="has-children">
+                                <a href="#">Аксессуары</a>
+ 
+                                <ul class="is-hidden">
+                                    <li class="go-back"><a href="#0">Одежда</a></li>
+                                    <li class="see-all"><a href="#">Все аксессуары</a></li>
+                                    <li class="has-children">
+                                        <a href="#0">Шапочки</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Аксессуары</a></li>
+                                            <li class="see-all"><a href="#">Все шапочки</a></li>
+                                            <li><a href="#">Головные уборы</a></li>
+                                            <li><a href="#">Подарки</a></li>
+                                            <li><a href="#">Шарфы</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="#0">Головные уборы</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Аксессуары</a></li>
+                                            <li class="see-all"><a href="#">Все головные уборы</a></li>
+                                            <li><a href="#">Шапочки</a></li>
+                                            <li><a href="#">Шапки</a></li>
+                                            <li><a href="#">Головные уборы</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Очки</a></li>
+                                    <li><a href="#">Перчатки</a></li>
+                                    <li><a href="#">Ювелирные изделия</a></li>
+                                    <li><a href="#">Шарфы</a></li>
+                                </ul>
+                            </li>
+ 
+                            <li class="has-children">
+                                <a href="#">Верхняя одежда</a>
+ 
+                                <ul class="is-hidden">
+                                    <li class="go-back"><a href="#0">Одежда</a></li>
+                                    <li class="see-all"><a href="#">Вся верхняя одежда</a></li>
+                                    <li><a href="#">Повседневная брюки</a></li>
+                                    <li class="has-children">
+                                        <a href="#0">Джинсы</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Верхняя одежда</a></li>
+                                            <li class="see-all"><a href="#">Все джинсы</a></li>
+                                            <li><a href="#">Рваные</a></li>
+                                            <li><a href="#">Узкие</a></li>
+                                            <li><a href="#">Зауженные</a></li>
+                                            <li><a href="#">Прямые</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#0">Леггинсы</a></li>
+                                    <li><a href="#0">Шорты</a></li>
+                                </ul>
+                            </li>
+ 
+                        </ul> <!-- .cd-secondary-dropdown -->
+                    </li> <!-- .has-children -->
+
+                    <li class="has-children aim-main">
+                        <a href="#">Одежда</a>
+ 
+                        <ul class="cd-secondary-dropdown is-hidden">
+                            <li class="go-back"><a href="#0">Меню</a></li>
+                            <li class="see-all"><a href="#">Вся одежда</a></li>
+                            <li class="has-children">
+                                <a href="#">Аксессуары</a>
+ 
+                                <ul class="is-hidden">
+                                    <li class="go-back"><a href="#0">Одежда</a></li>
+                                    <li class="see-all"><a href="#">Все аксессуары</a></li>
+                                    <li class="has-children">
+                                        <a href="#0">Шапочки</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Аксессуары</a></li>
+                                            <li class="see-all"><a href="#">Все шапочки</a></li>
+                                            <li><a href="#">Головные уборы</a></li>
+                                            <li><a href="#">Подарки</a></li>
+                                            <li><a href="#">Шарфы</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="#0">Головные уборы</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Аксессуары</a></li>
+                                            <li class="see-all"><a href="#">Все головные уборы</a></li>
+                                            <li><a href="#">Шапочки</a></li>
+                                            <li><a href="#">Шапки</a></li>
+                                            <li><a href="#">Головные уборы</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Очки</a></li>
+                                    <li><a href="#">Перчатки</a></li>
+                                    <li><a href="#">Ювелирные изделия</a></li>
+                                    <li><a href="#">Шарфы</a></li>
+                                </ul>
+                            </li>
+ 
+                            <li class="has-children">
+                                <a href="#">Верхняя одежда</a>
+ 
+                                <ul class="is-hidden">
+                                    <li class="go-back"><a href="#0">Одежда</a></li>
+                                    <li class="see-all"><a href="#">Вся верхняя одежда</a></li>
+                                    <li><a href="#">Повседневная брюки</a></li>
+                                    <li class="has-children">
+                                        <a href="#0">Джинсы</a>
+ 
+                                        <ul class="is-hidden">
+                                            <li class="go-back"><a href="#0">Верхняя одежда</a></li>
+                                            <li class="see-all"><a href="#">Все джинсы</a></li>
+                                            <li><a href="#">Рваные</a></li>
+                                            <li><a href="#">Узкие</a></li>
+                                            <li><a href="#">Зауженные</a></li>
+                                            <li><a href="#">Прямые</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#0">Леггинсы</a></li>
+                                    <li><a href="#0">Шорты</a></li>
+                                </ul>
+                            </li>
+ 
+                        </ul> <!-- .cd-secondary-dropdown -->
+                    </li> <!-- .has-children -->
+ 
+                   
+ 
+                    <li class="aim-main"><a href="#">Страница 1</a></li>
+                    <li class="aim-main"><a href="#">Страница 2</a></li>
+                    <li class="aim-main"><a href="#">Страница 3</a></li>
+                </ul> <!-- .cd-dropdown-content -->
+            </nav> <!-- .cd-dropdown -->
+        </div> <!-- .cd-dropdown-wrapper -->

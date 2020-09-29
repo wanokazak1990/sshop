@@ -23,7 +23,7 @@
         
         <main class="">
             <div class="btn-group">
-                <a class="btn btn-danger" href="{{route('sections.index')}}">Разделы товаров</a>
+                <a class="btn btn-danger" href="{{route('categories.index')}}">Разделы товаров</a>
                 <a class="btn btn-danger" href="{{route('banners.index')}}">Банеры</a>
             </div>
             <div class="container">

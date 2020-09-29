@@ -19,7 +19,7 @@ Route::group([],function(){
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
-	Route::resource('sections', 'SectionController');
+	Route::resource('categories', 'CategoryController');
 	Route::resource('banners', 'BannerController');
 	
 });

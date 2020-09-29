@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Sections;
+namespace App\Http\Requests\Admin\Categories;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddSectionRequest extends FormRequest
+class AddCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

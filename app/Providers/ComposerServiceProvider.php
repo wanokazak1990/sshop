@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Models\Section;
+use App\Models\Category;
 use App\Http\ViewComposers\NavigationMenu;
 
 class ComposerServiceProvider extends ServiceProvider

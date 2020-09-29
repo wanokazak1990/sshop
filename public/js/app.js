@@ -6491,402 +6491,6 @@ module.exports = function escape(url) {
 
 /***/ }),
 
-/***/ "./node_modules/jquery-match-height/dist/jquery.matchHeight.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/jquery-match-height/dist/jquery.matchHeight.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
-* jquery-match-height 0.7.2 by @liabru
-* http://brm.io/jquery-match-height/
-* License: MIT
-*/
-
-;(function(factory) { // eslint-disable-line no-extra-semi
-    'use strict';
-    if (true) {
-        // AMD
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else {}
-})(function($) {
-    /*
-    *  internal
-    */
-
-    var _previousResizeWidth = -1,
-        _updateTimeout = -1;
-
-    /*
-    *  _parse
-    *  value parse utility function
-    */
-
-    var _parse = function(value) {
-        // parse value and convert NaN to 0
-        return parseFloat(value) || 0;
-    };
-
-    /*
-    *  _rows
-    *  utility function returns array of jQuery selections representing each row
-    *  (as displayed after float wrapping applied by browser)
-    */
-
-    var _rows = function(elements) {
-        var tolerance = 1,
-            $elements = $(elements),
-            lastTop = null,
-            rows = [];
-
-        // group elements by their top position
-        $elements.each(function(){
-            var $that = $(this),
-                top = $that.offset().top - _parse($that.css('margin-top')),
-                lastRow = rows.length > 0 ? rows[rows.length - 1] : null;
-
-            if (lastRow === null) {
-                // first item on the row, so just push it
-                rows.push($that);
-            } else {
-                // if the row top is the same, add to the row group
-                if (Math.floor(Math.abs(lastTop - top)) <= tolerance) {
-                    rows[rows.length - 1] = lastRow.add($that);
-                } else {
-                    // otherwise start a new row group
-                    rows.push($that);
-                }
-            }
-
-            // keep track of the last row top
-            lastTop = top;
-        });
-
-        return rows;
-    };
-
-    /*
-    *  _parseOptions
-    *  handle plugin options
-    */
-
-    var _parseOptions = function(options) {
-        var opts = {
-            byRow: true,
-            property: 'height',
-            target: null,
-            remove: false
-        };
-
-        if (typeof options === 'object') {
-            return $.extend(opts, options);
-        }
-
-        if (typeof options === 'boolean') {
-            opts.byRow = options;
-        } else if (options === 'remove') {
-            opts.remove = true;
-        }
-
-        return opts;
-    };
-
-    /*
-    *  matchHeight
-    *  plugin definition
-    */
-
-    var matchHeight = $.fn.matchHeight = function(options) {
-        var opts = _parseOptions(options);
-
-        // handle remove
-        if (opts.remove) {
-            var that = this;
-
-            // remove fixed height from all selected elements
-            this.css(opts.property, '');
-
-            // remove selected elements from all groups
-            $.each(matchHeight._groups, function(key, group) {
-                group.elements = group.elements.not(that);
-            });
-
-            // TODO: cleanup empty groups
-
-            return this;
-        }
-
-        if (this.length <= 1 && !opts.target) {
-            return this;
-        }
-
-        // keep track of this group so we can re-apply later on load and resize events
-        matchHeight._groups.push({
-            elements: this,
-            options: opts
-        });
-
-        // match each element's height to the tallest element in the selection
-        matchHeight._apply(this, opts);
-
-        return this;
-    };
-
-    /*
-    *  plugin global options
-    */
-
-    matchHeight.version = '0.7.2';
-    matchHeight._groups = [];
-    matchHeight._throttle = 80;
-    matchHeight._maintainScroll = false;
-    matchHeight._beforeUpdate = null;
-    matchHeight._afterUpdate = null;
-    matchHeight._rows = _rows;
-    matchHeight._parse = _parse;
-    matchHeight._parseOptions = _parseOptions;
-
-    /*
-    *  matchHeight._apply
-    *  apply matchHeight to given elements
-    */
-
-    matchHeight._apply = function(elements, options) {
-        var opts = _parseOptions(options),
-            $elements = $(elements),
-            rows = [$elements];
-
-        // take note of scroll position
-        var scrollTop = $(window).scrollTop(),
-            htmlHeight = $('html').outerHeight(true);
-
-        // get hidden parents
-        var $hiddenParents = $elements.parents().filter(':hidden');
-
-        // cache the original inline style
-        $hiddenParents.each(function() {
-            var $that = $(this);
-            $that.data('style-cache', $that.attr('style'));
-        });
-
-        // temporarily must force hidden parents visible
-        $hiddenParents.css('display', 'block');
-
-        // get rows if using byRow, otherwise assume one row
-        if (opts.byRow && !opts.target) {
-
-            // must first force an arbitrary equal height so floating elements break evenly
-            $elements.each(function() {
-                var $that = $(this),
-                    display = $that.css('display');
-
-                // temporarily force a usable display value
-                if (display !== 'inline-block' && display !== 'flex' && display !== 'inline-flex') {
-                    display = 'block';
-                }
-
-                // cache the original inline style
-                $that.data('style-cache', $that.attr('style'));
-
-                $that.css({
-                    'display': display,
-                    'padding-top': '0',
-                    'padding-bottom': '0',
-                    'margin-top': '0',
-                    'margin-bottom': '0',
-                    'border-top-width': '0',
-                    'border-bottom-width': '0',
-                    'height': '100px',
-                    'overflow': 'hidden'
-                });
-            });
-
-            // get the array of rows (based on element top position)
-            rows = _rows($elements);
-
-            // revert original inline styles
-            $elements.each(function() {
-                var $that = $(this);
-                $that.attr('style', $that.data('style-cache') || '');
-            });
-        }
-
-        $.each(rows, function(key, row) {
-            var $row = $(row),
-                targetHeight = 0;
-
-            if (!opts.target) {
-                // skip apply to rows with only one item
-                if (opts.byRow && $row.length <= 1) {
-                    $row.css(opts.property, '');
-                    return;
-                }
-
-                // iterate the row and find the max height
-                $row.each(function(){
-                    var $that = $(this),
-                        style = $that.attr('style'),
-                        display = $that.css('display');
-
-                    // temporarily force a usable display value
-                    if (display !== 'inline-block' && display !== 'flex' && display !== 'inline-flex') {
-                        display = 'block';
-                    }
-
-                    // ensure we get the correct actual height (and not a previously set height value)
-                    var css = { 'display': display };
-                    css[opts.property] = '';
-                    $that.css(css);
-
-                    // find the max height (including padding, but not margin)
-                    if ($that.outerHeight(false) > targetHeight) {
-                        targetHeight = $that.outerHeight(false);
-                    }
-
-                    // revert styles
-                    if (style) {
-                        $that.attr('style', style);
-                    } else {
-                        $that.css('display', '');
-                    }
-                });
-            } else {
-                // if target set, use the height of the target element
-                targetHeight = opts.target.outerHeight(false);
-            }
-
-            // iterate the row and apply the height to all elements
-            $row.each(function(){
-                var $that = $(this),
-                    verticalPadding = 0;
-
-                // don't apply to a target
-                if (opts.target && $that.is(opts.target)) {
-                    return;
-                }
-
-                // handle padding and border correctly (required when not using border-box)
-                if ($that.css('box-sizing') !== 'border-box') {
-                    verticalPadding += _parse($that.css('border-top-width')) + _parse($that.css('border-bottom-width'));
-                    verticalPadding += _parse($that.css('padding-top')) + _parse($that.css('padding-bottom'));
-                }
-
-                // set the height (accounting for padding and border)
-                $that.css(opts.property, (targetHeight - verticalPadding) + 'px');
-            });
-        });
-
-        // revert hidden parents
-        $hiddenParents.each(function() {
-            var $that = $(this);
-            $that.attr('style', $that.data('style-cache') || null);
-        });
-
-        // restore scroll position if enabled
-        if (matchHeight._maintainScroll) {
-            $(window).scrollTop((scrollTop / htmlHeight) * $('html').outerHeight(true));
-        }
-
-        return this;
-    };
-
-    /*
-    *  matchHeight._applyDataApi
-    *  applies matchHeight to all elements with a data-match-height attribute
-    */
-
-    matchHeight._applyDataApi = function() {
-        var groups = {};
-
-        // generate groups by their groupId set by elements using data-match-height
-        $('[data-match-height], [data-mh]').each(function() {
-            var $this = $(this),
-                groupId = $this.attr('data-mh') || $this.attr('data-match-height');
-
-            if (groupId in groups) {
-                groups[groupId] = groups[groupId].add($this);
-            } else {
-                groups[groupId] = $this;
-            }
-        });
-
-        // apply matchHeight to each group
-        $.each(groups, function() {
-            this.matchHeight(true);
-        });
-    };
-
-    /*
-    *  matchHeight._update
-    *  updates matchHeight on all current groups with their correct options
-    */
-
-    var _update = function(event) {
-        if (matchHeight._beforeUpdate) {
-            matchHeight._beforeUpdate(event, matchHeight._groups);
-        }
-
-        $.each(matchHeight._groups, function() {
-            matchHeight._apply(this.elements, this.options);
-        });
-
-        if (matchHeight._afterUpdate) {
-            matchHeight._afterUpdate(event, matchHeight._groups);
-        }
-    };
-
-    matchHeight._update = function(throttle, event) {
-        // prevent update if fired from a resize event
-        // where the viewport width hasn't actually changed
-        // fixes an event looping bug in IE8
-        if (event && event.type === 'resize') {
-            var windowWidth = $(window).width();
-            if (windowWidth === _previousResizeWidth) {
-                return;
-            }
-            _previousResizeWidth = windowWidth;
-        }
-
-        // throttle updates
-        if (!throttle) {
-            _update(event);
-        } else if (_updateTimeout === -1) {
-            _updateTimeout = setTimeout(function() {
-                _update(event);
-                _updateTimeout = -1;
-            }, matchHeight._throttle);
-        }
-    };
-
-    /*
-    *  bind events
-    */
-
-    // apply on DOM ready event
-    $(matchHeight._applyDataApi);
-
-    // use on or bind where supported
-    var on = $.fn.on ? 'on' : 'bind';
-
-    // update heights on load and resize events
-    $(window)[on]('load', function(event) {
-        matchHeight._update(false, event);
-    });
-
-    // throttled update heights on resize events
-    $(window)[on]('resize orientationchange', function(event) {
-        matchHeight._update(true, event);
-    });
-
-});
-
-
-/***/ }),
-
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -42763,6 +42367,435 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/aim-menu-action.js":
+/*!*****************************************!*\
+  !*** ./resources/js/aim-menu-action.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+jQuery(document).ready(function ($) {
+  //open/close mega-navigation
+  $('.cd-dropdown-trigger').on('click', function (event) {
+    event.preventDefault();
+    toggleNav();
+  }); //close meganavigation
+
+  $('.cd-dropdown .cd-close').on('click', function (event) {
+    event.preventDefault();
+    toggleNav();
+  }); //on mobile - open submenu
+
+  $('.has-children').children('a').on('click', function (event) {
+    //prevent default clicking on direct children of .has-children 
+    event.preventDefault();
+    var selected = $(this);
+    selected.next('ul').removeClass('is-hidden').end().parent('.has-children').parent('ul').addClass('move-out');
+  }); //on desktop - differentiate between a user trying to hover over a dropdown item vs trying to navigate into a submenu's contents
+
+  var submenuDirection = !$('.cd-dropdown-wrapper').hasClass('open-to-left') ? 'right' : 'left';
+  $('.cd-dropdown-content').menuAim({
+    activate: function activate(row) {
+      $(row).children().addClass('is-active').removeClass('fade-out');
+      if ($('.cd-dropdown-content .fade-in').length == 0) $(row).children('ul').addClass('fade-in');
+    },
+    deactivate: function deactivate(row) {
+      $(row).children().removeClass('is-active');
+
+      if ($('li.has-children:hover').length == 0 || $('li.has-children:hover').is($(row))) {
+        $('.cd-dropdown-content').find('.fade-in').removeClass('fade-in');
+        $(row).children('ul').addClass('fade-out');
+      }
+    },
+    exitMenu: function exitMenu() {
+      $('.cd-dropdown-content').find('.is-active').removeClass('is-active');
+      return true;
+    },
+    submenuDirection: submenuDirection
+  }); //submenu items - go back link
+
+  $('.go-back').on('click', function () {
+    var selected = $(this),
+        visibleNav = $(this).parent('ul').parent('.has-children').parent('ul');
+    selected.parent('ul').addClass('is-hidden').parent('.has-children').parent('ul').removeClass('move-out');
+  });
+
+  function toggleNav() {
+    var navIsVisible = !$('.cd-dropdown').hasClass('dropdown-is-active') ? true : false;
+    $('.cd-dropdown').toggleClass('dropdown-is-active', navIsVisible);
+    $('.cd-dropdown-trigger').toggleClass('dropdown-is-active', navIsVisible);
+
+    if (!navIsVisible) {
+      $('.cd-dropdown').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        $('.has-children ul').addClass('is-hidden');
+        $('.move-out').removeClass('move-out');
+        $('.is-active').removeClass('is-active');
+      });
+    }
+  } //IE9 placeholder fallback
+  //credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
+
+  /*if(!Modernizr.input.placeholder){
+  	$('[placeholder]').focus(function() {
+  		var input = $(this);
+  		if (input.val() == input.attr('placeholder')) {
+  			input.val('');
+  	  	}
+  	}).blur(function() {
+  	 	var input = $(this);
+  	  	if (input.val() == '' || input.val() == input.attr('placeholder')) {
+  			input.val(input.attr('placeholder'));
+  	  	}
+  	}).blur();
+  	$('[placeholder]').parents('form').submit(function() {
+  	  	$(this).find('[placeholder]').each(function() {
+  			var input = $(this);
+  			if (input.val() == input.attr('placeholder')) {
+  		 		input.val('');
+  			}
+  	  	})
+  	});
+  }*/
+
+});
+
+/***/ }),
+
+/***/ "./resources/js/aim-menu.js":
+/*!**********************************!*\
+  !*** ./resources/js/aim-menu.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * menu-aim is a jQuery plugin for dropdown menus that can differentiate
+ * between a user trying hover over a dropdown item vs trying to navigate into
+ * a submenu's contents.
+ *
+ * menu-aim assumes that you have are using a menu with submenus that expand
+ * to the menu's right. It will fire events when the user's mouse enters a new
+ * dropdown item *and* when that item is being intentionally hovered over.
+ *
+ * __________________________
+ * | Monkeys  >|   Gorilla  |
+ * | Gorillas >|   Content  |
+ * | Chimps   >|   Here     |
+ * |___________|____________|
+ *
+ * In the above example, "Gorillas" is selected and its submenu content is
+ * being shown on the right. Imagine that the user's cursor is hovering over
+ * "Gorillas." When they move their mouse into the "Gorilla Content" area, they
+ * may briefly hover over "Chimps." This shouldn't close the "Gorilla Content"
+ * area.
+ *
+ * This problem is normally solved using timeouts and delays. menu-aim tries to
+ * solve this by detecting the direction of the user's mouse movement. This can
+ * make for quicker transitions when navigating up and down the menu. The
+ * experience is hopefully similar to amazon.com/'s "Shop by Department"
+ * dropdown.
+ *
+ * Use like so:
+ *
+ *      $("#menu").menuAim({
+ *          activate: $.noop,  // fired on row activation
+ *          deactivate: $.noop  // fired on row deactivation
+ *      });
+ *
+ *  ...to receive events when a menu's row has been purposefully (de)activated.
+ *
+ * The following options can be passed to menuAim. All functions execute with
+ * the relevant row's HTML element as the execution context ('this'):
+ *
+ *      .menuAim({
+ *          // Function to call when a row is purposefully activated. Use this
+ *          // to show a submenu's content for the activated row.
+ *          activate: function() {},
+ *
+ *          // Function to call when a row is deactivated.
+ *          deactivate: function() {},
+ *
+ *          // Function to call when mouse enters a menu row. Entering a row
+ *          // does not mean the row has been activated, as the user may be
+ *          // mousing over to a submenu.
+ *          enter: function() {},
+ *
+ *          // Function to call when mouse exits a menu row.
+ *          exit: function() {},
+ *
+ *          // Selector for identifying which elements in the menu are rows
+ *          // that can trigger the above events. Defaults to "> li".
+ *          rowSelector: "> li",
+ *
+ *          // You may have some menu rows that aren't submenus and therefore
+ *          // shouldn't ever need to "activate." If so, filter submenu rows w/
+ *          // this selector. Defaults to "*" (all elements).
+ *          submenuSelector: "*",
+ *
+ *          // Direction the submenu opens relative to the main menu. Can be
+ *          // left, right, above, or below. Defaults to "right".
+ *          submenuDirection: "right"
+ *      });
+ *
+ * https://github.com/kamens/jQuery-menu-aim
+ * MIT License
+*/
+(function ($) {
+  $.fn.menuAim = function (opts) {
+    // Initialize menu-aim for all elements in jQuery collection
+    this.each(function () {
+      init.call(this, opts);
+    });
+    return this;
+  };
+
+  function init(opts) {
+    var $menu = $(this),
+        activeRow = null,
+        mouseLocs = [],
+        lastDelayLoc = null,
+        timeoutId = null,
+        options = $.extend({
+      rowSelector: "> li",
+      submenuSelector: "*",
+      submenuDirection: "right",
+      tolerance: 75,
+      // bigger = more forgivey when entering submenu
+      enter: $.noop,
+      exit: $.noop,
+      activate: $.noop,
+      deactivate: $.noop,
+      exitMenu: $.noop
+    }, opts);
+    var MOUSE_LOCS_TRACKED = 3,
+        // number of past mouse locations to track
+    DELAY = 300; // ms delay when user appears to be entering submenu
+
+    /**
+     * Keep track of the last few locations of the mouse.
+     */
+
+    var mousemoveDocument = function mousemoveDocument(e) {
+      mouseLocs.push({
+        x: e.pageX,
+        y: e.pageY
+      });
+
+      if (mouseLocs.length > MOUSE_LOCS_TRACKED) {
+        mouseLocs.shift();
+      }
+    };
+    /**
+     * Cancel possible row activations when leaving the menu entirely
+     */
+
+
+    var mouseleaveMenu = function mouseleaveMenu() {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      } // If exitMenu is supplied and returns true, deactivate the
+      // currently active row on menu exit.
+
+
+      if (options.exitMenu(this)) {
+        if (activeRow) {
+          options.deactivate(activeRow);
+        }
+
+        activeRow = null;
+      }
+    };
+    /**
+     * Trigger a possible row activation whenever entering a new row.
+     */
+
+
+    var mouseenterRow = function mouseenterRow() {
+      if (timeoutId) {
+        // Cancel any previous activation delays
+        clearTimeout(timeoutId);
+      }
+
+      options.enter(this);
+      possiblyActivate(this);
+    },
+        mouseleaveRow = function mouseleaveRow() {
+      options.exit(this);
+    };
+    /*
+     * Immediately activate a row if the user clicks on it.
+     */
+
+
+    var clickRow = function clickRow() {
+      activate(this);
+    };
+    /**
+     * Activate a menu row.
+     */
+
+
+    var activate = function activate(row) {
+      if (row == activeRow) {
+        return;
+      }
+
+      if (activeRow) {
+        options.deactivate(activeRow);
+      }
+
+      options.activate(row);
+      activeRow = row;
+    };
+    /**
+     * Possibly activate a menu row. If mouse movement indicates that we
+     * shouldn't activate yet because user may be trying to enter
+     * a submenu's content, then delay and check again later.
+     */
+
+
+    var possiblyActivate = function possiblyActivate(row) {
+      var delay = activationDelay();
+
+      if (delay) {
+        timeoutId = setTimeout(function () {
+          possiblyActivate(row);
+        }, delay);
+      } else {
+        activate(row);
+      }
+    };
+    /**
+     * Return the amount of time that should be used as a delay before the
+     * currently hovered row is activated.
+     *
+     * Returns 0 if the activation should happen immediately. Otherwise,
+     * returns the number of milliseconds that should be delayed before
+     * checking again to see if the row should be activated.
+     */
+
+
+    var activationDelay = function activationDelay() {
+      if (!activeRow || !$(activeRow).is(options.submenuSelector)) {
+        // If there is no other submenu row already active, then
+        // go ahead and activate immediately.
+        return 0;
+      }
+
+      var offset = $menu.offset(),
+          upperLeft = {
+        x: offset.left,
+        y: offset.top - options.tolerance
+      },
+          upperRight = {
+        x: offset.left + $menu.outerWidth(),
+        y: upperLeft.y
+      },
+          lowerLeft = {
+        x: offset.left,
+        y: offset.top + $menu.outerHeight() + options.tolerance
+      },
+          lowerRight = {
+        x: offset.left + $menu.outerWidth(),
+        y: lowerLeft.y
+      },
+          loc = mouseLocs[mouseLocs.length - 1],
+          prevLoc = mouseLocs[0];
+
+      if (!loc) {
+        return 0;
+      }
+
+      if (!prevLoc) {
+        prevLoc = loc;
+      }
+
+      if (prevLoc.x < offset.left || prevLoc.x > lowerRight.x || prevLoc.y < offset.top || prevLoc.y > lowerRight.y) {
+        // If the previous mouse location was outside of the entire
+        // menu's bounds, immediately activate.
+        return 0;
+      }
+
+      if (lastDelayLoc && loc.x == lastDelayLoc.x && loc.y == lastDelayLoc.y) {
+        // If the mouse hasn't moved since the last time we checked
+        // for activation status, immediately activate.
+        return 0;
+      } // Detect if the user is moving towards the currently activated
+      // submenu.
+      //
+      // If the mouse is heading relatively clearly towards
+      // the submenu's content, we should wait and give the user more
+      // time before activating a new row. If the mouse is heading
+      // elsewhere, we can immediately activate a new row.
+      //
+      // We detect this by calculating the slope formed between the
+      // current mouse location and the upper/lower right points of
+      // the menu. We do the same for the previous mouse location.
+      // If the current mouse location's slopes are
+      // increasing/decreasing appropriately compared to the
+      // previous's, we know the user is moving toward the submenu.
+      //
+      // Note that since the y-axis increases as the cursor moves
+      // down the screen, we are looking for the slope between the
+      // cursor and the upper right corner to decrease over time, not
+      // increase (somewhat counterintuitively).
+
+
+      function slope(a, b) {
+        return (b.y - a.y) / (b.x - a.x);
+      }
+
+      ;
+      var decreasingCorner = upperRight,
+          increasingCorner = lowerRight; // Our expectations for decreasing or increasing slope values
+      // depends on which direction the submenu opens relative to the
+      // main menu. By default, if the menu opens on the right, we
+      // expect the slope between the cursor and the upper right
+      // corner to decrease over time, as explained above. If the
+      // submenu opens in a different direction, we change our slope
+      // expectations.
+
+      if (options.submenuDirection == "left") {
+        decreasingCorner = lowerLeft;
+        increasingCorner = upperLeft;
+      } else if (options.submenuDirection == "below") {
+        decreasingCorner = lowerRight;
+        increasingCorner = lowerLeft;
+      } else if (options.submenuDirection == "above") {
+        decreasingCorner = upperLeft;
+        increasingCorner = upperRight;
+      }
+
+      var decreasingSlope = slope(loc, decreasingCorner),
+          increasingSlope = slope(loc, increasingCorner),
+          prevDecreasingSlope = slope(prevLoc, decreasingCorner),
+          prevIncreasingSlope = slope(prevLoc, increasingCorner);
+
+      if (decreasingSlope < prevDecreasingSlope && increasingSlope > prevIncreasingSlope) {
+        // Mouse is moving from previous location towards the
+        // currently activated submenu. Delay before activating a
+        // new menu row, because user may be moving into submenu.
+        lastDelayLoc = loc;
+        return DELAY;
+      }
+
+      lastDelayLoc = null;
+      return 0;
+    };
+    /**
+     * Hook up initial menu events
+     */
+
+
+    $menu.mouseleave(mouseleaveMenu).find(options.rowSelector).mouseenter(mouseenterRow).mouseleave(mouseleaveRow).click(clickRow);
+    $(document).mousemove(mousemoveDocument);
+  }
+
+  ;
+})(jQuery);
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -42793,11 +42826,12 @@ __webpack_require__(/*! ./justifiedGallery-config */ "./resources/js/justifiedGa
 
 __webpack_require__(/*! ./function */ "./resources/js/function.js");
 
-__webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js");
+__webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js"); //require('jquery-match-height');
 
-__webpack_require__(/*! jquery-match-height */ "./node_modules/jquery-match-height/dist/jquery.matchHeight.js");
 
-__webpack_require__(/*! ./jquerymatchheight-config */ "./resources/js/jquerymatchheight-config.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./aim-menu */ "./resources/js/aim-menu.js");
+
+__webpack_require__(/*! ./aim-menu-action */ "./resources/js/aim-menu-action.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -42877,19 +42911,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/jquerymatchheight-config.js":
-/*!**************************************************!*\
-  !*** ./resources/js/jquerymatchheight-config.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  $('.submenu > li').matchHeight();
-});
-
-/***/ }),
-
 /***/ "./resources/js/justifiedGallery-config.js":
 /*!*************************************************!*\
   !*** ./resources/js/justifiedGallery-config.js ***!
@@ -42938,8 +42959,6 @@ $(document).ready(function () {
     if ($(this).height() > height) {
       height = $(this).height();
     }
-
-    console.log($(this).height());
   });
   $('.blog-slider .wrap').height(height);
   $('.banner-slider').slick({

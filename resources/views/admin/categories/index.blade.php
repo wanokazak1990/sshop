@@ -6,16 +6,18 @@
 
 		<div class="remove-row ">
 			<div class="row d-flex align-items-center hovered border-bottom py-1">
-				<div class="col-1 pl-0">
-					<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+				<div class="col-2 pl-0">
+					<div class="btn-group btn-group-sm " role="group" aria-label="Basic example">
 						<a class="btn btn-primary fa fa-share" href="{{route('categories.show',$item)}}" title="Открыть"></a>
 					
 						<a class="btn btn-success fa fa-pencil-square-o" href="{{route('categories.edit',$item)}}" title="Редактировать"></a>
-					
+						
+						<a class="btn btn-warning fa fa-plus" href="{{route('categories.create',['parent_id'=>$item->id])}}" title="Добавитбь в эту категорию"></a>
+
 						<a class="btn-del btn btn-danger fa fa-remove" data-url="{{route('categories.destroy',$item)}}" title="Удалить"></a>
 					</div>
 				</div>
-				<div class="col-9">
+				<div class="col-8">
 					@for($i=0;$i<=$tab;$i++)
 						<i class="pl-4" aria-hidden="true"></i>
 					@endfor

@@ -1,12 +1,18 @@
+.bg-light{
+  background: #fff;
+}
 .my-menu{
   position: relative;
-  font-size: 1.1rem;
-  font-weight: 100;
+  font-size: 0.9rem;
 }
 
 .my-menu-wrapper{
-    background: #fff;
+    
     z-index: 900;
+}
+.my-menu-back{
+  background: rgba(0,255,255,0.3);
+  background-left-color: rgba(0,255,255,0.3);
 }
 .my-menu-header{
     padding: 5px 15px;
@@ -19,15 +25,20 @@
     display: block;
     padding: 5px 15px;
     border-bottom: 1px solid #eee;
+    border-left: 5px solid transparent;
+    color: #333;
 }
 .my-menu-drop a:hover{
     background: #ddd;
+    text-decoration: none;
+    border-left-color: #d00;
 }
 .my-menu-drop{
-  background: #fff;
+  background: rgba(255,255,255,0.95);
   position: absolute;
   z-index: 900;
   box-shadow: 0 0 10px #777;
+  /*animation: pluck linear 0.3s;*/
 }
 .my-menu-drop ul{
   list-style-type: none;
@@ -44,6 +55,10 @@
     height: 0;
 }
 
+.my-action{
+  background: #fc5871;
+  border-color: #ddd;
+}
 @media screen and (max-width: 700px){
   .my-action{
     width: 100%;
@@ -69,5 +84,35 @@
  }
   .my-menu-header{
       display: block;
+      background: #333;
+      color: #ddd;
+  }
+}
+
+.my-menu-animation-in{
+  animation: pluck-in 0.3s linear;
+}
+@keyframes pluck-in{
+  0%{
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.my-menu-animation-out{
+  animation: pluck-out 0.3s linear;
+}
+@keyframes pluck-out{
+  0%{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-40px);
+    opacity: 0;
   }
 }

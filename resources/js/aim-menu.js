@@ -20,21 +20,25 @@ $(document).ready(function(){
 		list.addClass('d-none')
 		list.first().removeClass('d-none')
 	}
-	
-	//showFirst()
 
 	$(document).on('click','.my-action, .my-menu-close',function(){//клик по кнопке открыть каталог
 		if(drop.parent().hasClass('d-none'))//если у обёртки есть класс
 		{
 			drop.parent().removeClass('d-none')//удаляем класс
 			showFirst()
-			$(this).find('.fa').removeClass('fa-angle-down').addClass('fa-close')
+			$(this).find('.fa').removeClass('fa-bars').addClass('fa-close')
+			drop.removeClass('my-menu-animation-out')
+			drop.addClass('my-menu-animation-in')
 		}
 		else //иначе
 		{
+			drop.removeClass('my-menu-animation-in')
+			drop.addClass('my-menu-animation-out')
+			setTimeout(() => {
+				drop.parent().addClass('d-none')//добавляем класс
+			}, 300);
 			showFirst()
-			drop.parent().addClass('d-none')//добавляем класс
-			$(this).find('.fa').removeClass('fa-close').addClass('fa-angle-down')
+			$(this).find('.fa').removeClass('fa-close').addClass('fa-bars')
 		}
 	})
 
@@ -42,7 +46,7 @@ $(document).ready(function(){
 		
 		var subMenu = $(this).closest('li').find('.my-menu-list').first()
 		var dataId = $(this).attr('data-id')
-
+		
 		if($(this).hasClass('my-menu-back'))
 		{
 			showFirst()

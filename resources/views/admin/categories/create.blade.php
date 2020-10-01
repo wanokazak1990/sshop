@@ -12,7 +12,19 @@
 
 		<div class="mt-3">
 		    {!! Form::label('parent_id', 'Родительская категория') !!}
-		    {!! Form::select('parent_id', $parents, isset($category->parent_id) ? $category->parent_id : 0, ['placeholder' => 'Нет род. категории', 'class'=>'form-control']); !!}
+		    @isset(request()->parent_id))
+		    	{!! Form::select(
+		    		'parent_id', 
+		    		$parents, 
+		    		request()->parent_id, 
+		    		[
+		    			'placeholder' => 'Нет род. категории', 
+		    			'class'=>'form-control'
+		    		]
+		    	); !!}
+		    @else
+		    	{!! Form::select('parent_id', $parents, isset($category->parent_id) ? $category->parent_id : 0, ['placeholder' => 'Нет род. категории', 'class'=>'form-control']); !!}
+		    @endif
 		</div>
 
 		<div class="mt-3">
@@ -39,7 +51,7 @@
 		  <div class="form-group">
 		    <label class="label">
 		      <i class="fa fa-file"></i>
-		      <span class="title">Выбрать файл</span>
+		      <span class="title">Выбрать файл(500*500)</span>
 		      {!! Form::file('img' ) !!}
 		    </label>
 		  </div>

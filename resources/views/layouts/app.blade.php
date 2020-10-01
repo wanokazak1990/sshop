@@ -22,8 +22,10 @@
 <body>
         
         <main class="">
-            @include('front.header')
-            @include('front.navbar')
+            <div class="header-main" >
+                @include('front.header')
+                @include('front.navbar')
+            </div>
             @yield('content')
         </main>
 

@@ -10,6 +10,19 @@ Class UploadImage
 	private $x = null;
 	private $y = null;
 	private $quality = 60;
+	private $model;
+
+	private function getPath()
+    {
+        if(!empty($this->model->img))
+            return storage_path('app/public/'.$this->model->getTable().'/'.$this->model->img);
+    }
+
+    private function getUrl()
+    {
+        if(!empty($this->model->img))
+            return ('storage/'.$this->model->getTable().'/'.$this->model->img);
+    }
 
 	public function quality($q)
 	{
@@ -27,15 +40,27 @@ Class UploadImage
 		$this->quality = 60;
 	}
 
-	public function prepare(Model $model, $file)
+	public function setModel(Model $model)
 	{
 		$this->model = $model;
 
 		$this->path = storage_path('app/public').'/'.$model->getTable().'/';
-		
+
+		return $this;
+	}
+	public function setFile($file)
+	{
+				
 		$this->file = $file;
 
         return $this;
+	}
+
+	public function prepare(Model $model, $file)
+	{
+		$this->setModel($model);
+		$this->setFile($file);
+		return $this;
 	}
 
 	public function resolution($x = null,$y = null)
@@ -47,10 +72,11 @@ Class UploadImage
 		return $this;
 	}
 
-	public function deleteFile($file)
+	public function deleteFile()
 	{
-		if(file_exists($file))
-			unlink($file);
+		if(file_exists($this->getPath())){
+			unlink($this->getPath());
+		}
 		return $this;
 	}
 
@@ -58,13 +84,12 @@ Class UploadImage
 	{
 		if(!$this->file)
 			return;
-		if(file_exists($this->model->path_image))
-			$this->deleteFile($this->model->path_image);
-
+		$this->deleteFile();
 		$filename = date('Ymd').Str::random(20) .'.' . $this->file->getClientOriginalExtension() ?: 'png';
 		$img = Image::make($this->file);
-		$img->resize($this->x,$this->y, function ($constraint) {
-		    $constraint->aspectRatio();
+
+		$img->fit($this->x,$this->y, function ($constraint) {
+		    $constraint->upsize();
 		})->save($this->path.$filename, $this->quality);
 		$this->reset();
 		return $img->basename;

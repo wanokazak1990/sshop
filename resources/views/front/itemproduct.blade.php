@@ -7,14 +7,14 @@
       		</div>
       	</div>
       	<div class="card-body">
-       		<h5 class="card-title">Розовая вибробабочка с фаллосом на регулируемых ремешках</h5>
+       		<h5 class="card-title">Масло моторное Shell Helix Ultra 5w40</h5>
 
 
 
        		<div class="desc">
 	        	<div class="row border-bottom">
 	        		<div class="col-6">Бренд:</div>
-	        		<div class="col-6">Contex</div>
+	        		<div class="col-6">Shell</div>
 	        	</div>
 	        	<div class="row border-bottom">
 	        		<div class="col-6">Страна:</div>

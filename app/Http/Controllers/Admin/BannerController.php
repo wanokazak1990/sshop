@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Banner;
+use App\Models\Banner;
+use App\Services\UploadImage;
 
 class BannerController extends Controller
 {
+    private function getEditableColumns()
+    {
+        return ['title','description','link'];
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $banners = Banner::get();
+        return view('admin.banners.index', compact('banners'));
     }
 
     /**
@@ -39,9 +45,15 @@ class BannerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UploadImage $image)
     {
-        //
+        $banner = banner::create($request->only($this->getEditableColumns()));
+        $fileName = $image->prepare($banner, $request->file('img'))
+            ->resolution(1000,400)
+            ->quality(80)
+            ->saveSingle();
+        $banner->update(['img'=>$fileName]);
+        return redirect()->route('banners.index');
     }
 
     /**
@@ -61,9 +73,14 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Banner $banner)
     {
-        //
+        $form = [
+            'route'=>['banners.update',$banner],
+            'method' => 'PATCH',
+            'files' => true
+        ];
+        return view('admin.banners.create', compact('banner','form'));
     }
 
     /**
@@ -73,9 +90,17 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, UploadImage $image,Banner $banner)
     {
-        //
+        $banner->update($request->only($this->getEditableColumns()));
+        $fileName = $image->prepare($banner, $request->file('img'))
+            ->resolution(1000,400)
+            ->quality(90)
+            ->saveSingle();
+        if($fileName)
+            $banner->update(['img'=>$fileName]);
+        
+        return redirect()->route('banners.index');
     }
 
     /**
@@ -84,8 +109,11 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(UploadImage $image, Banner $banner)
     {
-        //
+        $id = $banner->id;
+        $image->setModel($banner)->deleteFile();
+        $banner->delete();
+        return response()->json(['id'=>$id]);
     }
 }

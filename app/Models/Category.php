@@ -40,15 +40,5 @@ class Category extends Model
         return $query;
     }
 
-    public function getPathImageAttribute()
-    {
-        if(!empty($this->img))
-            return storage_path('app/public/'.$this->getTable().'/'.$this->img);
-    }
-
-    public function getUrlImageAttribute()
-    {
-        if(!empty($this->img))
-            return ('storage/'.$this->getTable().'/'.$this->img);
-    }
+    
 }

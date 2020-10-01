@@ -1,4 +1,4 @@
-<div class="container-fluid" style="background: #efefef;">
+<div class="container-fluid {{isset($bg_color) ? $bg_color : '' }}">
 <div class="container pt-5" >
 	
 	<div class="row">

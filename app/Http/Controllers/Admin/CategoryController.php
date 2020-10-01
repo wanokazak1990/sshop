@@ -37,7 +37,7 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->only($this->getEditableColumns()));
         $fileName = $image->prepare($category, $request->file('img'))
-            ->resolution(800)
+            ->resolution(500,500)
             ->quality(80)
             ->saveSingle();
         $category->update(['img'=>$fileName]);
@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
         $category->update($request->only($this->getEditableColumns()));
         $fileName = $image->prepare($category, $request->file('img'))
-            ->resolution(800)
+            ->resolution(500,500)
             ->quality(80)
             ->saveSingle();
         if($fileName)
@@ -70,8 +70,9 @@ class CategoryController extends Controller
         return redirect()->route('categories.index');
     }
 
-    public function destroy(Category $category)
+    public function destroy(UploadImage $image, Category $category)
     {
+        $image->setModel($category)->deleteFile();
         $id = $category->id;
     	$category->where('parent_id',$id)->delete();
         $category->delete();

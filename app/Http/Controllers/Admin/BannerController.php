@@ -47,7 +47,7 @@ class BannerController extends Controller
      */
     public function store(Request $request, UploadImage $image)
     {
-        $banner = banner::create($request->only($this->getEditableColumns()));
+        $banner = Banner::create($request->only($this->getEditableColumns()));
         $fileName = $image->prepare($banner, $request->file('img'))
             ->resolution(1000,400)
             ->quality(80)

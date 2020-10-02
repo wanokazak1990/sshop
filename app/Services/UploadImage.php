@@ -2,6 +2,7 @@
 namespace App\Services;
 use Image, Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 Class UploadImage 
 {
@@ -48,6 +49,22 @@ Class UploadImage
 
 		return $this;
 	}
+
+	public function setPathWithId()
+	{
+		if(isset($this->model->id))
+		{
+			File::exists(
+				storage_path('app/public').'/'.$this->model->getTable().'/'.$this->model->id.'/'
+			) or File::makeDirectory(
+				storage_path('app/public').'/'.$this->model->getTable().'/'.$this->model->id.''
+			);
+
+			$this->path = storage_path('app/public').'/'.$this->model->getTable().'/'.$this->model->id.'/';
+		}
+		return $this;
+	}
+
 	public function setFile($file)
 	{
 				
@@ -74,8 +91,8 @@ Class UploadImage
 
 	public function deleteFile()
 	{
-		if(file_exists($this->getPath())){
-			unlink($this->getPath());
+		if(file_exists($this->path.$this->model->img)){
+			unlink($this->path.$this->model->img);
 		}
 		return $this;
 	}
@@ -87,7 +104,6 @@ Class UploadImage
 		$this->deleteFile();
 		$filename = date('Ymd').Str::random(20) .'.' . $this->file->getClientOriginalExtension() ?: 'png';
 		$img = Image::make($this->file);
-
 		$img->fit($this->x,$this->y, function ($constraint) {
 		    $constraint->upsize();
 		})->save($this->path.$filename, $this->quality);

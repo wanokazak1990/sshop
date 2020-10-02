@@ -10,8 +10,8 @@ class MainController extends Controller
 {
     public function index()
     {
-    	$categories = Category::where('parent_id',0)->get();
+    	$categories = Category::isLive()->get();
     	$banners = Banner::get();
-    	return view('front.main', compact('categories','banners'));
+    	return view('front.main', compact('banners'));
     }
 }

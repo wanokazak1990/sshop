@@ -62,7 +62,7 @@ laravel-controller:
 	sudo docker exec php-f-sshop php artisan make:controller $(controllerName)
 
 laravel-model:
-	sudo docker exec php-f-sshop php artisan make:model $(modelName)
+	sudo docker exec php-f-sshop php artisan make:model $(modelName) $(param)
 
 laravel-request:
 	sudo docker exec php-f-sshop php artisan make:request $(requestName)

@@ -21,6 +21,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 	Route::resource('categories', 'CategoryController');
 	Route::resource('banners', 'BannerController');
+	Route::resource('products', 'ProductController');
 	
 });
 

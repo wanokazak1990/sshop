@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\UploadImage;
+use App\Http\Requests\Admin\Product\ProductRequest;
+class ProductController extends Controller
+{
+    private function getEditableColumns()
+    {
+        return ['articule','name','desc','price'];
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        echo "string";
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $form = [
+            'route'=>'products.store',
+            'method' => 'POST',
+            'files' => true
+        ];
+        $categories = Category::isLive()
+            ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
+            ->get();
+        $grouped = $categories->groupBy('parent_id');
+
+        foreach ($categories as $item) {
+            if ($grouped->has($item->id)) {
+                $item->children = $grouped[$item->id];
+            }
+        }
+        
+        return view('admin.products.create',compact('form'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ProductRequest $request, UploadImage $image)
+    {
+        $product = Product::create($request->only($this->getEditableColumns()));
+        $fileName = $image->prepare($product, $request->file('img'))
+            ->setPathWithId()
+            ->resolution(500,500)
+            ->quality(80)
+            ->saveSingle();
+        $product->update(['img'=>$fileName]);
+        return redirect()->route('products.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Product $product)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
+    {
+        $form = [
+            'route'=>['products.update',$product],
+            'method' => 'PATCH',
+            'files' => true
+        ];
+        $categories = Category::isLive()
+            ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
+            ->get();
+        $grouped = $categories->groupBy('parent_id');
+
+        foreach ($categories as $item) {
+            if ($grouped->has($item->id)) {
+                $item->children = $grouped[$item->id];
+            }
+        }
+
+        return view('admin.products.create', compact('product','form'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ProductRequest $request, UploadImage $image, Product $product)
+    {
+        $product->update($request->only($this->getEditableColumns()));
+        $fileName = $image->prepare($product, $request->file('img'))
+            ->setPathWithId()
+            ->resolution(500,500)
+            ->quality(90)
+            ->saveSingle();
+        if($fileName)
+            $product->update(['img'=>$fileName]);
+        
+        return redirect()->route('products.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        //
+    }
+}

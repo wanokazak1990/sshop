@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Category;
 use App\Http\ViewComposers\NavigationMenu;
-
 class ComposerServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+       
     }
 
     /**

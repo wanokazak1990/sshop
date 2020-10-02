@@ -13,7 +13,6 @@ Class NavigationMenu{
             ->get();
 
         $categoryItems = $this->buildTree($categoryItems);
-
         return $view->with('categoryItems', $categoryItems);
     }
 

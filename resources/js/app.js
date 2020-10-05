@@ -17,6 +17,7 @@ require('./justifiedGallery-config');
 
 require('./function')
 require('./admin/btn-del');
+require('./admin/category-get');
 
 //require('./modernizir');
 require('./aim-menu');

@@ -12,7 +12,7 @@
 
 		<div class="mt-3">
 		    {!! Form::label('parent_id', 'Родительская категория') !!}
-		    @isset(request()->parent_id))
+		    @isset(request()->parent_id)
 		    	{!! Form::select(
 		    		'parent_id', 
 		    		$parents, 

@@ -14242,7 +14242,7 @@ body {
 
 .card:hover img {
   box-shadow: 0px 0px 15px #999;
-  transform: scale(1.1, 1.1);
+  transform: scale(1.02, 1.02);
 }
 
 .card .card-body {
@@ -14303,6 +14303,10 @@ body {
   z-index: 0;
   text-align: center;
   padding: 10px;
+}
+
+.cursor-none {
+  pointer-events: none;
 }
 
 .action-slider img {

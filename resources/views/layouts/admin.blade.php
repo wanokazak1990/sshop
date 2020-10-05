@@ -34,5 +34,7 @@
             </div>
         </main>
 
+        @include('admin.modal.modal')
+
 </body>
 </html>

@@ -42367,6 +42367,19 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/admin/category-get.js":
+/*!********************************************!*\
+  !*** ./resources/js/admin/category-get.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(document).on('click', '#check-category', function () {});
+});
+
+/***/ }),
+
 /***/ "./resources/js/aim-menu-action.js":
 /*!*****************************************!*\
   !*** ./resources/js/aim-menu-action.js ***!
@@ -42479,7 +42492,9 @@ __webpack_require__(/*! ./justifiedGallery-config */ "./resources/js/justifiedGa
 
 __webpack_require__(/*! ./function */ "./resources/js/function.js");
 
-__webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js"); //require('./modernizir');
+__webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js");
+
+__webpack_require__(/*! ./admin/category-get */ "./resources/js/admin/category-get.js"); //require('./modernizir');
 
 
 __webpack_require__(/*! ./aim-menu */ "./resources/js/aim-menu.js");

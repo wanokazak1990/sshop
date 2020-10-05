@@ -13,7 +13,7 @@ class Category extends Model
         'img',
         'parent_id',
         'sort',
-        'live'
+        'live',        
     ];
 
     public function parent()
@@ -38,6 +38,37 @@ class Category extends Model
         }
 
         return $query;
+    }
+
+    public function recursiveArr($obj, &$mas, $step = '')
+    {
+        foreach ($obj as $key => $itemObj) {
+            $mas[$itemObj->id] = $step.$itemObj->name;
+            if($itemObj->children->isNotEmpty())
+            {
+                $preStep = $step;
+                $step.=$itemObj->name.'-->';
+                $this->recursiveArr($itemObj->children,$mas,$step);
+                $step = $preStep;
+            }
+        }
+    }
+
+    public static function getArrayForSelect()
+    {
+        $categories = self::ofSort(['name' => 'asc', 'sort' => 'asc'])
+            ->get();
+        $grouped = $categories->groupBy('parent_id');
+        
+        foreach ($categories as $item)         
+            if ($grouped->has($item->id))             
+                $item->children = $grouped[$item->id]; 
+
+        $mas = [];
+        $obj = new Category;
+        $obj->recursiveArr($categories->where('parent_id',null), $mas);
+        
+        return $mas;
     }
 
     

@@ -21,6 +21,10 @@
 			{{Form::label('price','Цена')}}
 			{{Form::number('price',isset($product->price)?$product->price:'', ['class'=>'form-control','step'=>'0.01', 'min'=>'0', 'placeholder'=>'0.00'])}}
 		</div>
+		<div class="">
+			{{Form::label('category_id','Категория')}}
+					{{Form::select('category_id', $categories,isset($product->category_id)?$product->category_id:'',['class'=>'form-control ', 'placeholder'=>'Название продукта'])}}
+		</div>
 	</div>
 
 	<div class="col-4">

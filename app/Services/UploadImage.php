@@ -91,7 +91,7 @@ Class UploadImage
 
 	public function deleteFile()
 	{
-		if(file_exists($this->path.$this->model->img)){
+		if(file_exists($this->path.$this->model->img) && $this->model->img){
 			unlink($this->path.$this->model->img);
 		}
 		return $this;

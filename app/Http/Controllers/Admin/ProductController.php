@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     private function getEditableColumns()
     {
-        return ['articule','name','desc','price'];
+        return ['articule','name','desc','price','category_id'];
     }
     /**
      * Display a listing of the resource.
@@ -36,18 +36,10 @@ class ProductController extends Controller
             'method' => 'POST',
             'files' => true
         ];
-        $categories = Category::isLive()
-            ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
-            ->get();
-        $grouped = $categories->groupBy('parent_id');
 
-        foreach ($categories as $item) {
-            if ($grouped->has($item->id)) {
-                $item->children = $grouped[$item->id];
-            }
-        }
-        
-        return view('admin.products.create',compact('form'));
+        $categories = Category::getArrayForSelect();
+
+        return view('admin.products.create',compact('form','categories'));
     }
 
     /**
@@ -92,18 +84,10 @@ class ProductController extends Controller
             'method' => 'PATCH',
             'files' => true
         ];
-        $categories = Category::isLive()
-            ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
-            ->get();
-        $grouped = $categories->groupBy('parent_id');
 
-        foreach ($categories as $item) {
-            if ($grouped->has($item->id)) {
-                $item->children = $grouped[$item->id];
-            }
-        }
+        $categories = Category::getArrayForSelect();
 
-        return view('admin.products.create', compact('product','form'));
+        return view('admin.products.create', compact('product','form','categories'));
     }
 
     /**

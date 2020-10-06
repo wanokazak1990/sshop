@@ -3,15 +3,17 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="section-title ">
-				Скидки
+				{{isset($blockTitle) ? $blockTitle : 'Скидки'}}
 			</div>
 		</div>
 
 		<div class="col-12">
 			<div class="sale-slider">
-				@for($i=1;$i<=8;$i++)
+				@isset($products)
+				@foreach($products as $k => $itemProduct)
 					@include('front.itemproduct')
-				@endfor	
+				@endforeach
+				@endisset
 			</div>
 		</div>
 	</div>

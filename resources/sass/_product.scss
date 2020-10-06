@@ -55,6 +55,11 @@
 .card .product-img{
 	position: relative;
 }
+
+.card .product-img a {
+	text-decoration: none;
+	color:#333;
+}
 .card .product-img:hover .product-viewer{
 	position: absolute;
 	bottom: 0%;
@@ -65,7 +70,7 @@
 	transition: 0.3s bottom linear;
 	position: absolute;
 	width: 100%;
-	background: rgba(255,210,50,0.7);
+	background: rgba(255,210,50);
 	left: 0%;
 	bottom: -30%;
 	z-index: 0;
@@ -76,4 +81,8 @@
 
 .cursor-none{
 	pointer-events: none;
+}
+
+.product img{
+	width:100%;
 }

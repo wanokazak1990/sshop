@@ -171,7 +171,8 @@
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 
 .fa-stack {
@@ -5198,6 +5199,11 @@ pre code {
 }
 
 .form-control:-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.form-control::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -14286,6 +14292,11 @@ body {
   position: relative;
 }
 
+.card .product-img a {
+  text-decoration: none;
+  color: #333;
+}
+
 .card .product-img:hover .product-viewer {
   position: absolute;
   bottom: 0%;
@@ -14297,7 +14308,7 @@ body {
   transition: 0.3s bottom linear;
   position: absolute;
   width: 100%;
-  background: rgba(255, 210, 50, 0.7);
+  background: #ffd232;
   left: 0%;
   bottom: -30%;
   z-index: 0;
@@ -14307,6 +14318,10 @@ body {
 
 .cursor-none {
   pointer-events: none;
+}
+
+.product img {
+  width: 100%;
 }
 
 .action-slider img {
@@ -14354,8 +14369,11 @@ body {
 }
 
 .category-menu img {
+  transition: transform 0.3s linear, -webkit-filter 0.3s linear !important;
   transition: transform 0.3s linear, filter 0.3s linear !important;
-  filter: grayscale(0.7);
+  transition: transform 0.3s linear, filter 0.3s linear, -webkit-filter 0.3s linear !important;
+  -webkit-filter: grayscale(0.7);
+          filter: grayscale(0.7);
   width: 100%;
 }
 
@@ -14376,7 +14394,8 @@ body {
 }
 
 .category-menu img:hover {
-  filter: grayscale(0);
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
   cursor: pointer;
   z-index: 10;
 }

@@ -21,7 +21,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        echo "string";
+        $products = Product::with('category')->get();
+
+        return view('admin.products.index',compact('products'));
     }
 
     /**
@@ -117,8 +119,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(UploadImage $image,Product $product)
     {
-        //
+        $id = $product->id;
+        $image->setModel($product)->setPathWithId()->deleteDir();
+        $product->delete();
+        return response()->json(['id'=>$id]);
     }
 }

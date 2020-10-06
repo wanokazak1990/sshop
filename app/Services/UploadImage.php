@@ -3,6 +3,7 @@ namespace App\Services;
 use Image, Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Storage;
 
 Class UploadImage 
 {
@@ -95,6 +96,14 @@ Class UploadImage
 			unlink($this->path.$this->model->img);
 		}
 		return $this;
+	}
+
+	public function deleteDir()
+	{
+		if(File::exists(
+				storage_path('app/public').'/'.$this->model->getTable().'/'.$this->model->id.'/'
+			) && $this->model->id)
+			File::deleteDirectory($this->path);
 	}
 
 	public function saveSingle()

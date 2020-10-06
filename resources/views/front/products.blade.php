@@ -10,10 +10,11 @@
 	</div>
 
 	<div class="row row-cols-1 row-cols-md-4">
-		@for($i=1;$i<=$count;$i++)
+		@isset($products)
+		@foreach($products as $k => $itemProduct)
 			@include('front.itemproduct')
-		@endfor
-
+		@endforeach
+		@endisset
 	</div>
 </div>
 </div>

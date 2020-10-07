@@ -21,6 +21,13 @@ class MainController extends Controller
 
     public function show(Product $product)
     {
-    	return view('front.product', compact('product'));
+    	$categoryChain = $product->category->getChainToParent($product->category_id)->reverse();
+
+    	return view('front.product', compact('product','categoryChain'));
+    }
+
+    public function catalog(Category $category)
+    {
+    	dd($category->getChainToChild($category->id)->pluck('name','id'));
     }
 }

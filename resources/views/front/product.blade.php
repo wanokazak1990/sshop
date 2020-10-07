@@ -20,6 +20,11 @@
 				Цена: {{$product->format_price}} руб.
 			</div>
 			<div class="">
+				@foreach($categoryChain as $item) 
+					{{$item->name}}
+				@endforeach
+			</div>
+			<div class="">
 				<b>Артикул:</b>
 				{{$product->articule}}
 			</div>

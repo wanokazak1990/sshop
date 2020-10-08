@@ -48,11 +48,11 @@ class Category extends Model
     {
         foreach ($obj as $key => $itemObj) {
             $mas[$itemObj->id] = $step.$itemObj->name;
-            if($itemObj->children->isNotEmpty())
+            if(isset($itemObj->childrens))
             {
                 $preStep = $step;
                 $step.=$itemObj->name.'-->';
-                $this->recursiveArr($itemObj->children,$mas,$step);
+                $this->recursiveArr($itemObj->childrens,$mas,$step);
                 $step = $preStep;
             }
         }
@@ -66,7 +66,7 @@ class Category extends Model
         
         foreach ($categories as $item)         
             if ($grouped->has($item->id))             
-                $item->children = $grouped[$item->id]; 
+                $item->childrens = $grouped[$item->id]; 
 
         $mas = [];
         $obj = new Category;
@@ -75,7 +75,7 @@ class Category extends Model
         return $mas;
     }
 
-    public function getChainToParent($id=0, &$mas = '', $categories = '')
+    public function getChainToParent($id=0, $mas = '', $categories = '')
     {
         if(empty($categories))
         {
@@ -86,17 +86,19 @@ class Category extends Model
 
         foreach ($categories as $key => $itemCat) 
         {
-            if($itemCat->id == $id)
+            if($itemCat->id == $id && $itemCat->parent_id != 0 && isset($categories[$key]))
             {
-                if($itemCat->parent_id)
-                {
+                    unset($categories[$key]);
                     $id = $itemCat->parent_id;
                     $mas->push($itemCat);
                     $this->getChainToParent($id,$mas,$categories);
-                }
+                
+            }
+            elseif ($itemCat->id == $id && $itemCat->parent_id==0){
+                $mas->push($itemCat);
+                unset($categories[$key]);
             }
         }
-
         return ($mas);
     }
 
@@ -106,17 +108,27 @@ class Category extends Model
         {
             $categories = $this->ofSort(['name' => 'asc', 'sort' => 'asc'])
                 ->get();
+
+            $grouped = $categories->groupBy('parent_id');
+
+            foreach ($categories as $item)         
+                if ($grouped->has($item->id))             
+                    $item->childrens = $grouped[$item->id]; 
+
             $mas = collect();
             $mas->push($this);
+
         }
+
+        
 
         foreach ($categories as $key => $item) {
             if($item->parent_id == $id)
             {
                 $mas->push($item);
-                if($item->children->isNotEmpty())
+                if(isset($item->childrens))
                 {
-                    $this->getChainToChild($item->id,$mas,$item->children);
+                    $this->getChainToChild($item->id,$mas,$item->childrens);
                 }
             }
         }

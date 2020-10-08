@@ -1,11 +1,31 @@
 @extends('layouts.app')
 
-@section('content')
-
-<div class="container product py-3">
+@section('breadcrups')
+<div class="container">
 	<div class="row">
 		<div class="col-12">
-			<div class="h2">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Главная</a></li>
+
+					@foreach($categoryChain as $crumb)
+						<li class="breadcrumb-item"><a href="{{route('view.catalog',$crumb)}}">{{$crumb->name}}</a></li>				
+					@endforeach
+					<li class="breadcrumb-item active" aria-current="page">{{$product->name}}</li>
+					
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+@endsection
+
+@section('content')
+
+<div class="container product">
+	<div class="row">
+		<div class="col-12">
+			<div class="h2 section-title">
 				{{$product->name}}
 			</div>
 		</div>

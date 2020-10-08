@@ -7,7 +7,7 @@
         @if($current) 
           <li>
             <a href="{{route('view.catalog',$current)}}" class="my-menu-all">
-              Раздел {{$current->name}}
+              Весь раздел {{$current->name}}
             </a>
           </li>
         @endif
@@ -15,7 +15,7 @@
         <?php foreach ($data as $itemSection) : ?>
             
                 <li>
-                  @if($itemSection->children->isNotEmpty())
+                  @if(!empty($itemSection->childrens))
                     <a>
                       {{$itemSection->name}}
                       <span class="fa fa-angle-right float-right pt-1"></span>
@@ -26,9 +26,9 @@
                     </a>
                   @endif
 
-                  @if($itemSection->children->isNotEmpty()) 
+                  @if(!empty($itemSection->childrens))
                       <?php $current = $itemSection;?>
-                      <?php write($itemSection->children,1,$current);?>
+                      <?php write($itemSection->childrens,1,$current);?>
                       <?php $current="";?>
                   @endif
                 </li>

@@ -8,8 +8,7 @@ Class NavigationMenu{
 
     public function compose(View $view)
     {
-        $categoryItems = Category::isLive()
-            ->ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
+        $categoryItems = Category::ofSort(['parent_id' => 'asc', 'sort' => 'asc'])
             ->get();
 
         $categoryItems = $this->buildTree($categoryItems);
@@ -22,7 +21,7 @@ Class NavigationMenu{
 
         foreach ($items as $item) {
             if ($grouped->has($item->id)) {
-                $item->children = $grouped[$item->id];
+                $item->childrens = $grouped[$item->id];
             }
         }
 

@@ -171,7 +171,8 @@
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 
 .fa-stack {
@@ -5202,6 +5203,11 @@ pre code {
   opacity: 1;
 }
 
+.form-control::-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1;
@@ -8261,7 +8267,7 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #3490dc;
+  color: #999;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
@@ -8294,8 +8300,8 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  background-color: #fc5871;
+  border-color: #fc5871;
 }
 
 .page-item.disabled .page-link {
@@ -14368,8 +14374,11 @@ body {
 }
 
 .category-menu img {
+  transition: transform 0.3s linear, -webkit-filter 0.3s linear !important;
   transition: transform 0.3s linear, filter 0.3s linear !important;
-  filter: grayscale(0.7);
+  transition: transform 0.3s linear, filter 0.3s linear, -webkit-filter 0.3s linear !important;
+  -webkit-filter: grayscale(0.7);
+          filter: grayscale(0.7);
   width: 100%;
 }
 
@@ -14390,7 +14399,8 @@ body {
 }
 
 .category-menu img:hover {
-  filter: grayscale(0);
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
   cursor: pointer;
   z-index: 10;
 }

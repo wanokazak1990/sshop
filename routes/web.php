@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([],function(){
 	Route::get('/', 'MainController@index')->name('main');
-	Route::get('/catalog/product/{product}','MainController@show')->name('view.product');
+	Route::get('/view/product/{product}','MainController@show')->name('view.product');
+	Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){

@@ -8267,7 +8267,7 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #3490dc;
+  color: #999;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
@@ -8300,8 +8300,8 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  background-color: #fc5871;
+  border-color: #fc5871;
 }
 
 .page-item.disabled .page-link {
@@ -14057,7 +14057,12 @@ body {
 
 .my-menu-back {
   background: rgba(0, 255, 255, 0.3);
-  background-left-color: rgba(0, 255, 255, 0.3);
+  border-left-color: rgba(0, 255, 255, 0.3);
+}
+
+.my-menu-all {
+  background: rgba(0, 255, 0, 0.3);
+  border-left-color: rgba(0, 255, 255, 0.3);
 }
 
 .my-menu-header {

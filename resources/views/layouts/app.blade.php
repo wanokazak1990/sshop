@@ -26,6 +26,7 @@
                 @include('front.header')
                 @include('front.navbar')
             </div>
+            @yield('breadcrups')
             @yield('content')
         </main>
 

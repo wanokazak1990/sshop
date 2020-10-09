@@ -1,24 +1,42 @@
-<?php function write($data,$i) { ?>
+<?php function write($data,$i,&$current='') { ?>
         <ul class="my-menu-list">
-        <?php if($i!=0) : ?>
+        @if($i!=0)
             <li><a class="my-menu-back">Назад</a></li>
-        <?php endif;?>
+        @endif
+
+        @if($current) 
+          <li>
+            <a href="{{route('view.catalog',$current)}}" class="my-menu-all">
+              Весь раздел {{$current->name}}
+            </a>
+          </li>
+        @endif
+
         <?php foreach ($data as $itemSection) : ?>
             
                 <li>
-                    <a {{$itemSection->children->isNotEmpty() ? '' : 'href="http://vk.com"'}}>
-                        {{$itemSection->name}}
-                        @if($itemSection->children->isNotEmpty())
-                            <span class="fa fa-angle-right float-right pt-1"></span>
-                        @endif
+                  @if(!empty($itemSection->childrens))
+                    <a>
+                      {{$itemSection->name}}
+                      <span class="fa fa-angle-right float-right pt-1"></span>
                     </a>
-                    <?php if($itemSection->children->isNotEmpty()) : ?>
-                        <?php write($itemSection->children,1);?>
-                    <?php endif;?>
+                  @else
+                    <a href="{{route('view.catalog',$itemSection)}}">
+                      {{$itemSection->name}}
+                    </a>
+                  @endif
+
+                  @if(!empty($itemSection->childrens))
+                      <?php $current = $itemSection;?>
+                      <?php write($itemSection->childrens,1,$current);?>
+                      <?php $current="";?>
+                  @endif
                 </li>
 
 
         <?php endforeach; ?>
+
+        
         </ul>
 <?php } ?>
 

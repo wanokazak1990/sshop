@@ -12,8 +12,14 @@
 }
 .my-menu-back{
   background: rgba(0,255,255,0.3);
-  background-left-color: rgba(0,255,255,0.3);
+  border-left-color: rgba(0,255,255,0.3);
 }
+
+.my-menu-all{
+  background: rgba(0,255,0,0.3);
+  border-left-color: rgba(0,255,255,0.3);
+}
+
 .my-menu-header{
     padding: 5px 15px;
     font-size: 1.4rem;

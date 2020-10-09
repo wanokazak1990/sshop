@@ -28,13 +28,25 @@
 		</div>
 
 		<div class="mt-3">
-			{!! Form::label('sort', 'Порядок сортировки') !!}
-			{!! Form::number('sort', isset($category->sort) ? $category->sort : '',['class'=>'form-control']); !!}
-		</div>
+			<div class="row">
+				<div class="col"> 
+					{!! Form::label('sort', 'Порядок') !!}
+					{!! Form::number('sort', isset($category->sort) ? $category->sort : '',['class'=>'form-control']); !!}
+				</div>
+				<div class="col">
+					{!! Form::label('final', 'Финальная') !!}
+					<div class="form-control"> 
+						{!! Form::checkbox('final', '1', isset($category->final) ? $category->final : '0') !!}
+					</div>
+				</div>
 
-		<div class="mt-3">
-			{!! Form::label('live', 'Актуальность') !!}
-			{!! Form::checkbox('live', '1', isset($category->live) ? $category->live : '0') !!}
+				<div class="col">
+					{!! Form::label('live', 'Актуальность') !!}
+					<div class="form-control"> 
+						{!! Form::checkbox('live', '1', isset($category->live) ? $category->live : '0') !!}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 

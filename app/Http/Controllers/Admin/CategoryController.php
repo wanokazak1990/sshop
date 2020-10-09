@@ -13,7 +13,7 @@ class CategoryController extends Controller
 {
     private function getEditableColumns()
     {
-        return ['name','parent_id','live','sort'];
+        return ['name','parent_id','live','sort','final'];
     }
 
     public function index()

@@ -17,7 +17,8 @@ class Category extends Model
         'img',
         'parent_id',
         'sort',
-        'live',        
+        'live', 
+        'final',       
     ];
 
     public function parent()

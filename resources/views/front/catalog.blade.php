@@ -36,6 +36,7 @@
 			</div>
 		</div>
 
+		@if(!empty($products))
 		<div class="row">
 			<div class="col-3">
 
@@ -56,6 +57,21 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		@endif
+
+		@if(!empty($categories))
+			<div class="row row-cols-1 row-cols-md-5 category-menu">
+				@foreach($categories as $cat)
+				<div class="col ">
+					<a href="{{route('view.catalog',$cat)}}">
+						{{$cat->name}}
+						<img src="{{asset('storage/categories/'.$cat->img)}}">
+					</a>
+				</div>
+				@endforeach
+			</div>
+		@endif
 	</div>
 </div>
 

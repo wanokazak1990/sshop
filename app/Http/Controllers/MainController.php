@@ -25,10 +25,13 @@ class MainController extends Controller
     	return view('front.product', compact('product','categoryChain'));
     }
 
-    public function catalog(Category $category)
+    public function catalog(Category $category, $products='', $categories='')
     {
     	$breadCrumbs = $category->getChainToParent($category->id)->reverse();
-    	$products = Product::whereIn('category_id',$category->getChainToChild($category->id)->pluck('id'))->paginate(12);
-    	return view('front.catalog',compact('products','category','breadCrumbs'));
+    	if($category->final)
+    		$products = Product::whereIn('category_id',$category->getChainToChild($category->id)->pluck('id'))->paginate(12);
+    	else
+    		$categories = $category->children;
+    	return view('front.catalog',compact('products','category','breadCrumbs','categories'));
     }
 }

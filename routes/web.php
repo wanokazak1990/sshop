@@ -16,15 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::group([],function(){
 	Route::get('/', 'MainController@index')->name('main');
 	Route::get('/view/product/{product}','MainController@show')->name('view.product');
-	Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
+    Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 	Route::resource('categories', 'CategoryController');
 	Route::resource('banners', 'BannerController');
-	Route::resource('products', 'ProductController');
-	
+    Route::resource('products', 'ProductController');
+    Route::resource('parameters', 'ParameterController');
+
 });
 
 Auth::routes();

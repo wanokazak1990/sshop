@@ -11,5 +11,19 @@ $(document).ready(function(){
 		        console.log(error)
 		    })
 		}
+	});
+
+	$('.append-val').on('click',function(){
+		var added = $('.default-val').clone().removeClass('default-val')
+		added.find('input').val('')
+		$('.values-content').prepend(added)
+	});
+
+	$(document).on('click','.btn-clear',function(){
+		var row = $(this).closest('.row')
+		if(row.hasClass('default-val'))
+			row.find('input').val('')
+		else
+			row.remove()
 	})
 })

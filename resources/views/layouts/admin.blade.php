@@ -26,6 +26,7 @@
                 <a class="btn btn-danger" href="{{route('categories.index')}}">Разделы товаров</a>
                 <a class="btn btn-danger" href="{{route('banners.index')}}">Банеры</a>
                 <a class="btn btn-danger" href="{{route('products.index')}}">Продукты</a>
+                <a class="btn btn-danger" href="{{route('parameters.index')}}">Параметры</a>
             </div>
             <div class="container">
 

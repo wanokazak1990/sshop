@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Parameter;
 use App\Models\Category;
+use App\Models\Value;
 
 class ParameterController extends Controller
 {
@@ -21,7 +22,7 @@ class ParameterController extends Controller
      */
     public function index()
     {
-        $parameters = Parameter::get();
+        $parameters = Parameter::with('category')->get();
         return view('admin.parameters.index',compact('parameters'));
     }
 
@@ -78,6 +79,7 @@ class ParameterController extends Controller
             'files' => true
         ];
         $categories = Category::where('final',1)->get()->pluck('name','id');
+        $values = $parameter->values;
         return view('admin.parameters.create', compact('form','categories', 'parameter'));
     }
 
@@ -91,6 +93,14 @@ class ParameterController extends Controller
     public function update(Request $request, Parameter $parameter)
     {
         $parameter->update($request->only($this->getEditableColumns()));
+        Value::where('parameter_id',$parameter->id)->delete();
+        if($request->value)
+            foreach($request->value as $val)
+                if($val)
+                    Value::create([
+                        'parameter_id'=>$parameter->id,
+                        'value'=>$val
+                    ]);
         return redirect()->route('parameters.index');
     }
 

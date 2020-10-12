@@ -171,8 +171,7 @@
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 .fa-stack {
@@ -5199,11 +5198,6 @@ pre code {
 }
 
 .form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
-.form-control::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -14374,11 +14368,8 @@ body {
 }
 
 .category-menu img {
-  transition: transform 0.3s linear, -webkit-filter 0.3s linear !important;
   transition: transform 0.3s linear, filter 0.3s linear !important;
-  transition: transform 0.3s linear, filter 0.3s linear, -webkit-filter 0.3s linear !important;
-  -webkit-filter: grayscale(0.7);
-          filter: grayscale(0.7);
+  filter: grayscale(0.7);
   width: 100%;
 }
 
@@ -14399,8 +14390,7 @@ body {
 }
 
 .category-menu img:hover {
-  -webkit-filter: grayscale(0);
-          filter: grayscale(0);
+  filter: grayscale(0);
   cursor: pointer;
   z-index: 10;
 }

@@ -33,20 +33,21 @@
 			</div>
 		</div>
 		<div class="values-content">
+			
+			@if( isset($parameter) && $parameter->id)
+				@foreach($parameter->values as $itemVal)
 
-			@foreach($parameter->values as $itemVal)
-
-				<div class="row pb-1">
-					<div class="col-10">
-						{{Form::text('value[]',$itemVal->value,['class'=>'form-control'])}}
+					<div class="row pb-1">
+						<div class="col-10">
+							{{Form::text('value[]',$itemVal->value,['class'=>'form-control'])}}
+						</div>
+						<div class="col-2">
+							<a data-url="" class="btn-clear btn btn-block btn-danger fa fa-close"></a>
+						</div>
 					</div>
-					<div class="col-2">
-						<a data-url="" class="btn-clear btn btn-block btn-danger fa fa-close"></a>
-					</div>
-				</div>
 
-			@endforeach
-
+				@endforeach
+			@endif
 			<div class="row pb-1 default-val">
 				<div class="col-10">
 					{{Form::text('value[]','',['class'=>'form-control'])}}

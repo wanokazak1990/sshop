@@ -3,7 +3,7 @@
 @section('content')
 
 {!! Form::open($form) !!}
-<div class="row">
+<div class="row category_add">
 	<div class="col-6">
 		<div class="">
 			{{Form::label('articule','Артикул')}}
@@ -23,8 +23,42 @@
 		</div>
 		<div class="">
 			{{Form::label('category_id','Категория')}}
-					{{Form::select('category_id', $categories,isset($product->category_id)?$product->category_id:'',['class'=>'form-control ', 'placeholder'=>'Название продукта'])}}
+					{{Form::select('category_id', $categories->pluck('name','id'),isset($product->category_id)?$product->category_id:'',['class'=>'form-control ', 'placeholder'=>'Категория продукта', 'data-url' => route('category.values')])}}
 		</div>
+		
+		
+		@isset($product)
+		<div class="parameters">
+		@foreach($parameters as $param)
+			<?php
+				$test = ($param->values->first(function ($item,$key) use($product){					
+					if($product->properties->contains('value_id',$item->id ))
+						return $item; 
+				}));
+			?>
+			<div class="">
+
+				{{Form::label('values[]',$param->name)}}
+
+				{{Form::select(
+					'values[]', 
+					$param->values->pluck('value','id'),
+					($test = ($param->values->first(function ($item,$key) use($product){					
+						if($product->properties->contains('value_id',$item->id ))
+							return $item; 
+					}))) ? $test->id : '',
+					[
+						'class'=>'form-control ', 
+						'placeholder'=>'Укажите значение'
+					]
+				)}}
+
+			</div>
+			
+		@endforeach
+		</div>
+		@endisset
+		
 	</div>
 
 	<div class="col-4">

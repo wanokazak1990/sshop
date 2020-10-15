@@ -42372,6 +42372,18 @@ $(document).ready(function () {
     var row = $(this).closest('.row');
     if (row.hasClass('default-val')) row.find('input').val('');else row.remove();
   });
+  $(document).on('change', '.category_add #category_id', function () {
+    var button = $(this);
+    var url = button.attr('data-url');
+    var param = {};
+    param.id = button.val();
+    axios.post(url, param).then(function (response) {
+      $('.category_add .parameters').html('');
+      if (response.data.content) $('.category_add .parameters').html(response.data.content);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  });
 });
 
 /***/ }),

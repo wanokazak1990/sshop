@@ -21,7 +21,8 @@
 			</div>
 
 			<div class="col-3">
-				{{$param->category->name}}
+
+				{{ ($param->category) ? $param->category->name : '' }}
 			</div>
 
 			<div class="col-5">

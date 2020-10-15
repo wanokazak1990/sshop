@@ -59,6 +59,8 @@ class Category extends Model
         }
     }
 
+    
+
     public static function getArrayForSelect()
     {
         $categories = self::ofSort(['name' => 'asc', 'sort' => 'asc'])

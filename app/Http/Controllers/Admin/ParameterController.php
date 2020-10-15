@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Parameter;
 use App\Models\Category;
 use App\Models\Value;
+use App\Models\Property;
 
 class ParameterController extends Controller
 {
@@ -51,6 +52,13 @@ class ParameterController extends Controller
     public function store(Request $request)
     {
         $parameter = Parameter::create($request->only($this->getEditableColumns()));
+        if($request->value)
+            foreach($request->value as $val)
+                if($val)
+                    Value::create([
+                        'parameter_id'=>$parameter->id,
+                        'value'=>$val
+                    ]);
         return redirect()->route('parameters.edit',$parameter);
     }
 
@@ -110,8 +118,11 @@ class ParameterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Parameter $parameter)
     {
-        //
+        $values = Value::where('parameter_id',$parameter->id)->get();
+        Property::whereIn('value_id',$values->pluck('id'))->delete();
+        Value::where('parameter_id',$parameter->id)->delete();
+        $parameter->delete();
     }
 }

@@ -16,14 +16,19 @@
 
 
           <div class="desc">
-            <div class="row border-bottom">
-              <div class="col-6">Бренд:</div>
-              <div class="col-6">Shell</div>
-            </div>
-            <div class="row border-bottom">
-              <div class="col-6">Страна:</div>
-              <div class="col-6">Чехия</div>
-            </div>
+            @if($itemProduct->properties->isNotEmpty())
+              @foreach($itemProduct->properties as $itemProperty)
+                <div class="row">
+                  <div class="col-5">
+                    {{$itemProperty->value->parameter->name}}
+                  </div>
+
+                  <div class="col-7">
+                    {{$itemProperty->value->value}}
+                  </div>
+                </div>
+              @endforeach
+            @endif
           </div>
 
           <div class="price">

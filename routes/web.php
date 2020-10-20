@@ -28,6 +28,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
     Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
     	Route::post('category/values', 'CategoryAjaxController@parameters')->name('category.values');
+        Route::delete('parameter/value/destroy','ValueAjaxController@destroy')->name('value.destroy');
     });
 });
 

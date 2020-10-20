@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "jquery-form-styler": "^2.0.2",
         "jquery-match-height": "^0.7.2",
         "justifiedGallery": "^3.8.1",
         "slick-carousel": "^1.8.1"

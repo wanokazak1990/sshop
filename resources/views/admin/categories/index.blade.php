@@ -7,7 +7,7 @@
 		<div class="remove-row ">
 			<div class="row d-flex align-items-center hovered border-bottom py-1">
 				<div class="col-2 pl-0">
-					<div class="btn-group btn-group-sm " role="group" aria-label="Basic example">
+					<div class="btn-group  " role="group" aria-label="Basic example">
 						<a class="btn btn-primary fa fa-share" href="{{route('categories.show',$item)}}" title="Открыть"></a>
 					
 						<a class="btn btn-success fa fa-pencil-square-o" href="{{route('categories.edit',$item)}}" title="Редактировать"></a>
@@ -36,8 +36,13 @@
 				<div class="col-1" >
 					{{$item->sort}}
 				</div>
+
+
 				<div class="col-1">
-					<span class="{{ ($item->live) ? 'fa fa-check-square-o' : 'fa fa-square-o'}}"></span>
+					<div class="btn-group">
+						<span title="Финальность" class="btn {{ ($item->final) ? 'fa fa-star btn-success' : 'fa fa-star-o btn-danger'}}"></span>
+						<span title="Актуальность" class="btn {{ ($item->live) ? 'fa fa-check-square-o btn-success' : 'fa fa-square-o btn-danger'}}"></span>
+					</div>
 				</div>
 			</div>
 			<?php write($item->children,$tab);?>

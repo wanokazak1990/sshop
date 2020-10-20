@@ -31,8 +31,10 @@
 	font-size: 0.7rem;
 }
 .card .desc .row{
-	padding: 5px 0;
+	padding: 2px 0;
 	border-bottom: 1px dotted #ddd;
+	white-space: nowrap;
+	overflow-x: hidden;
 }
 
 .card .articule{
@@ -91,3 +93,22 @@
 .product img{
 	width:100%;
 }
+
+.selectus{
+	position: relative;
+}
+.selectus select{
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+    border-radius: 10px;
+}
+
+/*.selectus:after{
+	content: "";
+	z-index: 999;
+	position: absolute ;
+	bottom: 0px;
+	right: 10px;
+	display: block;
+}*/

@@ -19,14 +19,6 @@ $(document).ready(function(){
 		$('.values-content').prepend(added)
 	});
 
-	$(document).on('click','.btn-clear',function(){
-		var row = $(this).closest('.row')
-		if(row.hasClass('default-val'))
-			row.find('input').val('')
-		else
-			row.remove()
-	})
-
 	$(document).on('change','.category_add #category_id',function(){
 		var button = $(this)
 		var url = button.attr('data-url')

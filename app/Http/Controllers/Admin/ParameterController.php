@@ -101,14 +101,21 @@ class ParameterController extends Controller
     public function update(Request $request, Parameter $parameter)
     {
         $parameter->update($request->only($this->getEditableColumns()));
-        Value::where('parameter_id',$parameter->id)->delete();
+        //Value::where('parameter_id',$parameter->id)->delete();
         if($request->value)
-            foreach($request->value as $val)
+            foreach($request->value as $key=>$val)
                 if($val)
-                    Value::create([
-                        'parameter_id'=>$parameter->id,
-                        'value'=>$val
-                    ]);
+                    if($parameter->values->contains('id',$key))
+                    {
+                        $value = $parameter->values->where('id',$key)->first();
+                        $value->value = $val;
+                        $value->update();
+                    }
+                    else
+                        Value::create([
+                            'parameter_id'=>$parameter->id,
+                            'value'=>$val
+                        ]);
         return redirect()->route('parameters.index');
     }
 

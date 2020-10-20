@@ -40,6 +40,20 @@
 		<div class="row">
 			<div class="col-3">
 
+				@if($parameters)
+					{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
+					@foreach($parameters as $itemParam)
+						<div class="selectus">
+							{{Form::label($itemParam->slug,$itemParam->name)}}
+							{{Form::select($itemParam->slug,$itemParam->values->pluck('value','id'),Request::get($itemParam->slug),['class'=>'form-control mb-3 ','placeholder'=>'Укажите значение'])}}
+
+						</div>
+					@endforeach
+
+					{{Form::submit('Найти',['class'=>'btn btn-block btn-dark mt-3'])}}
+
+					{{Form::close()}}
+				@endif
 			</div>
 
 			<div class="col-9">

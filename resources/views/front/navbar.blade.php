@@ -40,7 +40,8 @@
         </ul>
 <?php } ?>
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
 <div class="container">
   <a class="navbar-brand d-sm-none" href="#">Navbar1</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +50,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item ">
             <div class="my-menu">
                 <a class="my-action btn btn-danger">
                     Каталог товаров
@@ -81,6 +82,13 @@
         <a class="nav-link" href="#">Контакты</a>
       </li>
     </ul>
+
+    <ul class="navbar-nav ">
+      <li class="nav-item ">
+        <a class="nav-link cart" href="#"><i class="fa fa-shopping-cart"></i> Корзина</a>
+      </li>
+    </ul>
   </div>
 </div>
 </nav>
+</div>

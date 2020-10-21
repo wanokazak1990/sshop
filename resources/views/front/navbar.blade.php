@@ -85,7 +85,7 @@
 
     <ul class="navbar-nav ">
       <li class="nav-item ">
-        <a class="nav-link cart" href="#"><i class="fa fa-shopping-cart"></i> Корзина</a>
+        <a class="nav-link cart" data-url="{{route('cart.get')}}"><i class="fa fa-shopping-cart"></i> Корзина</a>
       </li>
     </ul>
   </div>

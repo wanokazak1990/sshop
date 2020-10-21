@@ -1,6 +1,6 @@
 @isset($itemProduct)
 @if($itemProduct instanceof App\Models\Product)
-<div class="col mb-4">
+<div class="col mb-4 product">
     <div class="card h-100">
         <div class="product-img">
           <a href="{{route('view.product',$itemProduct)}}">
@@ -41,7 +41,7 @@
         </div>
 
         <div class="card-footer">
-          <button class="btn btn-block btn-push-card">В корзину</button>
+          <button class="btn btn-block btn-push-card" data-url="{{route('cart.add',$itemProduct)}}">В корзину</button>
         </div>
     </div>
 </div>

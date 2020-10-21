@@ -178,6 +178,7 @@ return [
 
         App\Providers\ComposerServiceProvider::class,
         App\Providers\UploadProvider::class,
+        App\Providers\CartProvider::class,
 
     ],
 

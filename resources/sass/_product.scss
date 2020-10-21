@@ -1,50 +1,50 @@
-.card{
+.product .card{
 	transition: transform 0.3s linear, box-shadow 0.3s linear;
 	border: 0px;
 	overflow:hidden;
 }
-.card:hover{
+.product .card:hover{
 	box-shadow: 0px 0px 15px #999;
 }
 
-.card img{
+.product .card img{
 	transition: transform 0.3s linear;
 	z-index:10;
 }
 
-.card:hover img{
+.product .card:hover img{
 	box-shadow: 0px 0px 15px #999;
 	transform: scale(1.02,1.02);
 }
 
-.card .card-body{
+.product .card .card-body{
 	background:#fff;
 	z-index:20;
 }
 
-.card .card-title{
+.product .card .card-title{
 	font-size: 0.9rem;
 	color:#333;
 }
-.card .desc{
+.product .card .desc{
 	color: #666;
 	font-size: 0.7rem;
 }
-.card .desc .row{
+.product .card .desc .row{
 	padding: 2px 0;
 	border-bottom: 1px dotted #ddd;
 	white-space: nowrap;
 	overflow-x: hidden;
 }
 
-.card .articule{
+.product .card .articule{
 	color: #666;
 	text-align: left;
 	font-size: 0.6rem;
 	font-weight: 100;
 }
 
-.card .price{
+.product .card .price{
 	font-size: 1.5rem;
 	padding-top: 5px;
 }
@@ -59,21 +59,21 @@
 	color: #fff;
 }
 
-.card .product-img{
+.product .card .product-img{
 	position: relative;
 }
 
-.card .product-img a {
+.product .card .product-img a {
 	text-decoration: none;
 	color:#333;
 }
-.card .product-img:hover .product-viewer{
+.product .card .product-img:hover .product-viewer{
 	position: absolute;
 	bottom: 0%;
 	left: 0;
 	z-index:10;
 }
-.card .product-viewer{
+.product .card .product-viewer{
 	transition: 0.3s bottom linear;
 	position: absolute;
 	width: 100%;

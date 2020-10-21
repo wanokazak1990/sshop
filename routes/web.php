@@ -19,6 +19,11 @@ Route::group([],function(){
     Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
 });
 
+Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],function(){
+    Route::get('get','CartController@get')->name('cart.get');
+    Route::post('add/{product}','CartController@add')->name('cart.add');
+});
+
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 	Route::resource('categories', 'CategoryController');

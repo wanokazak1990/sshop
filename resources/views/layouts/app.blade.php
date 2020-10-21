@@ -29,6 +29,6 @@
             @yield('breadcrups')
             @yield('content')
         </main>
-
+        @include('front.modal')
 </body>
 </html>

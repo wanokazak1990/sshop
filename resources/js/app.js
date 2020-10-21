@@ -21,6 +21,8 @@ require('./admin/category-get');
 
 require('./aim-menu');
 
+require('./cart/cart');
+
 
 
 

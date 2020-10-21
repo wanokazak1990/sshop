@@ -42587,17 +42587,20 @@ $(document).ready(function () {
   $('.card .desc').height(height); //ФИКСАЦИЯ НАВИГАЦИИ ПРИ ПРОКРУТКЕ
 
   var navbar = $(document).find('.navbar');
-  var navbarDefaultY = navbar.offset().top;
-  var navbarHeight = navbar.outerHeight();
-  navbar.parent().height(navbarHeight);
-  console.log(navbarHeight);
-  $(window).on('scroll', function () {
-    var currentScroll = $(window).scrollTop();
 
-    if (currentScroll > navbarDefaultY) {
-      navbar.addClass('fixed-top').addClass('border-bottom');
-    } else navbar.removeClass('fixed-top').removeClass('border-bottom');
-  });
+  if (navbar.length > 0) {
+    var navbarDefaultY = navbar.offset().top;
+    var navbarHeight = navbar.outerHeight();
+    navbar.parent().height(navbarHeight);
+    console.log(navbarHeight);
+    $(window).on('scroll', function () {
+      var currentScroll = $(window).scrollTop();
+
+      if (currentScroll > navbarDefaultY) {
+        navbar.addClass('fixed-top').addClass('border-bottom');
+      } else navbar.removeClass('fixed-top').removeClass('border-bottom');
+    });
+  }
 });
 
 /***/ }),

@@ -36,12 +36,12 @@
 			
 			@if( isset($parameter) && $parameter->id)
 				@foreach($parameter->values as $itemVal)
-					<div class="row pb-1">
+					<div class="row pb-1 remove-row">
 						<div class="col-10">
 							{{Form::text('value['.$itemVal->id.']',$itemVal->value,['class'=>'form-control'])}}
 						</div>
 						<div class="col-2">
-							<a data-url="{{route('value.destroy')}}" class="btn-del btn btn-block btn-danger fa fa-close"></a>
+							<a data-url="{{route('value.destroy',$itemVal)}}" class="btn-del btn btn-block btn-danger fa fa-close"></a>
 						</div>
 					</div>
 

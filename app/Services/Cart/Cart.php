@@ -11,6 +11,7 @@ Class Cart
 	public function __construct()
 	{
 		$this->init();
+		$this->products = collect();
 	}
 
 	public function test()

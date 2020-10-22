@@ -21,7 +21,11 @@ require('./admin/category-get');
 
 require('./aim-menu');
 
+//require('./cart/ball_to_cart');
+import { test } from './cart/ball_to_cart.js';
+require('./cart/cart_total_price');
 require('./cart/cart');
+
 
 
 

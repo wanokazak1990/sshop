@@ -48,7 +48,7 @@
 				<b>Артикул:</b>
 				{{$product->articule}}
 			</div>
-			<button class="btn btn-block btn-push-card">В корзину</button>
+			@include('front.buttons.addToCart',['product' => $product])
 			<p>{{$product->desc}}</p>
 
 		</div>

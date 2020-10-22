@@ -17,7 +17,8 @@ $(document).ready(function(){
 		var me = $(this)
 		var url = me.attr('data-url')
 		axios.post(url).then(function(response){
-			console.log(response.data)
+			window.ballToCart(me,$('.cart'),1)
+			window.getTotalCartPrice()
 		}).catch(function(error){
 			console.log(error)
 		})

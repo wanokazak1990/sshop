@@ -7,7 +7,7 @@ $(document).ready(function(){
 	})
 	$('.card .desc').height(height)
 
-
+	getTotalCartPrice()
 
 
 	//ФИКСАЦИЯ НАВИГАЦИИ ПРИ ПРОКРУТКЕ
@@ -17,7 +17,6 @@ $(document).ready(function(){
 		var navbarDefaultY = navbar.offset().top
 		var navbarHeight = navbar.outerHeight()
 		navbar.parent().height(navbarHeight)
-		console.log(navbarHeight)
 		$(window).on('scroll',function(){
 			var currentScroll = $(window).scrollTop()
 			if(currentScroll > navbarDefaultY)

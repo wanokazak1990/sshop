@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <meta name="total-cart-price" content="{{route('cart.total') }}">
 </head>
 <body>
         

@@ -42472,9 +42472,13 @@ $(document).ready(function () {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _cart_ball_to_cart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cart/ball_to_cart.js */ "./resources/js/cart/ball_to_cart.js");
+/* harmony import */ var _cart_ball_to_cart_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_cart_ball_to_cart_js__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -42502,7 +42506,12 @@ __webpack_require__(/*! ./admin/btn-del */ "./resources/js/admin/btn-del.js");
 
 __webpack_require__(/*! ./admin/category-get */ "./resources/js/admin/category-get.js");
 
-__webpack_require__(/*! ./aim-menu */ "./resources/js/aim-menu.js");
+__webpack_require__(/*! ./aim-menu */ "./resources/js/aim-menu.js"); //require('./cart/ball_to_cart');
+
+
+
+
+__webpack_require__(/*! ./cart/cart_total_price */ "./resources/js/cart/cart_total_price.js");
 
 __webpack_require__(/*! ./cart/cart */ "./resources/js/cart/cart.js"); //window.Vue = require('vue');
 
@@ -42573,6 +42582,35 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/cart/ball_to_cart.js":
+/*!*******************************************!*\
+  !*** ./resources/js/cart/ball_to_cart.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//FLYING TO THE CART111
+window.ballToCart = function ballToCart(ball, cart) {
+  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var w = ball.width() + 25;
+  ball.clone().css({
+    'width': w + 'px',
+    'position': 'absolute',
+    'z-index': '9999',
+    top: ball.offset().top,
+    left: ball.offset().left
+  }).appendTo("body").animate({
+    width: '50px',
+    opacity: 0.05,
+    left: cart.offset().left,
+    top: cart.offset().top
+  }, 1000, function () {
+    $(this).remove();
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/cart/cart.js":
 /*!***********************************!*\
   !*** ./resources/js/cart/cart.js ***!
@@ -42597,12 +42635,31 @@ $(document).ready(function () {
     var me = $(this);
     var url = me.attr('data-url');
     axios.post(url).then(function (response) {
-      console.log(response.data);
+      window.ballToCart(me, $('.cart'), 1);
+      window.getTotalCartPrice();
     })["catch"](function (error) {
       console.log(error);
     });
   });
 });
+
+/***/ }),
+
+/***/ "./resources/js/cart/cart_total_price.js":
+/*!***********************************************!*\
+  !*** ./resources/js/cart/cart_total_price.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.getTotalCartPrice = function () {
+  var url = $('meta[name="total-cart-price"]').attr('content');
+  var cart = $('.cart');
+  var cartIndikator = cart.find('.badge');
+  axios.get(url).then(function (response) {
+    cartIndikator.html(response.data.count + 'шт. / ' + response.data.total + 'руб.');
+  });
+};
 
 /***/ }),
 
@@ -42619,7 +42676,8 @@ $(document).ready(function () {
   $('.card .desc').each(function () {
     if ($(this).height() > height) height = $(this).height();
   });
-  $('.card .desc').height(height); //ФИКСАЦИЯ НАВИГАЦИИ ПРИ ПРОКРУТКЕ
+  $('.card .desc').height(height);
+  getTotalCartPrice(); //ФИКСАЦИЯ НАВИГАЦИИ ПРИ ПРОКРУТКЕ
 
   var navbar = $(document).find('.navbar');
 
@@ -42627,7 +42685,6 @@ $(document).ready(function () {
     var navbarDefaultY = navbar.offset().top;
     var navbarHeight = navbar.outerHeight();
     navbar.parent().height(navbarHeight);
-    console.log(navbarHeight);
     $(window).on('scroll', function () {
       var currentScroll = $(window).scrollTop();
 

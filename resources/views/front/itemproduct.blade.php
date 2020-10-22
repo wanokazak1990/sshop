@@ -41,7 +41,7 @@
         </div>
 
         <div class="card-footer">
-          <button class="btn btn-block btn-push-card" data-url="{{route('cart.add',$itemProduct)}}">В корзину</button>
+          @include('front.buttons.addToCart',['product' => $itemProduct])
         </div>
     </div>
 </div>

@@ -51,7 +51,7 @@ Class Cart
 		$item = $this->products->has($product->id);
 		if($item)
 		{
-			$this->products->get($product->id)->delete();
+			$this->products->get($product->id)->take();
 			if($this->products->get($product->id)->getCount() == 0)
 				$this->products->forget($product->id);
 		}
@@ -76,5 +76,25 @@ Class Cart
 			$count += $product->getCount();
 		}
 		return $count;
+	}
+
+	
+
+	public function formatTotal()
+	{
+		return number_format($this->totalPrice(),0,'',' ');
+	}
+
+	public function clear()
+	{
+		Session::put('cart','');
+	}
+
+	public static function checkProduct($id)
+	{
+		$cart = new Cart();
+		if($cart->products->has($id))
+			return 1;
+		return 0;
 	}
 }

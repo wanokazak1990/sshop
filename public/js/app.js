@@ -42621,22 +42621,36 @@ window.ballToCart = function ballToCart(ball, cart) {
 $(document).ready(function () {
   var modal = $('#modal-window');
   var modalContent = modal.find('.modal-content');
-  $(document).on('click', '.cart', function () {
+  /*$(document).on('click','.cart',function(){
+  	var me = $(this)
+  	var url = me.attr('data-url')
+  	axios.get(url).then(function (response) {
+  		modalContent.html(response.data.content)
+          modal.modal('show')
+      }).catch(function (error) {
+          console.log(error)
+      })
+  })*/
+
+  $(document).on('click', '.btn-to-cart', function () {
     var me = $(this);
     var url = me.attr('data-url');
-    axios.get(url).then(function (response) {
-      modalContent.html(response.data.content);
-      modal.modal('show');
+    console.log(url);
+    axios.post(url).then(function (response) {
+      me.removeClass('btn-push-card').addClass('btn-dark');
+      window.ballToCart(me, $('.cart'), 1);
+      window.getTotalCartPrice();
     })["catch"](function (error) {
       console.log(error);
     });
   });
-  $(document).on('click', '.btn-push-card', function () {
+  $(document).on('click', '.cart-control', function () {
     var me = $(this);
     var url = me.attr('data-url');
+    var line = me.closest('.cart-row');
     axios.post(url).then(function (response) {
-      window.ballToCart(me, $('.cart'), 1);
       window.getTotalCartPrice();
+      window.getItemProductPrice();
     })["catch"](function (error) {
       console.log(error);
     });
@@ -42658,6 +42672,18 @@ window.getTotalCartPrice = function () {
   var cartIndikator = cart.find('.badge');
   axios.get(url).then(function (response) {
     cartIndikator.html(response.data.count + 'шт. / ' + response.data.total + 'руб.');
+  });
+};
+
+window.getItemProductPrice = function () {
+  var cart = $('.cart');
+  var url = cart.attr('href');
+  var content = $('#cart-content');
+  console.log(url);
+  axios.post(url).then(function (response) {
+    content.html(response.data.content);
+  })["catch"](function (error) {
+    console.log(error);
   });
 };
 

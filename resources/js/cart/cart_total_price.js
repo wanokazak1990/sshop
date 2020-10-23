@@ -6,3 +6,15 @@ window.getTotalCartPrice = function(){
 		cartIndikator.html(response.data.count+'шт. / '+response.data.total+'руб.')
 	})
 }
+
+window.getItemProductPrice = function(){
+	var cart = $('.cart')
+	var url = cart.attr('href')
+	var content = $('#cart-content')
+	console.log(url)
+	axios.post(url).then(function (response) {
+		content.html(response.data.content)
+    }).catch(function (error) {
+        console.log(error)
+    })
+}

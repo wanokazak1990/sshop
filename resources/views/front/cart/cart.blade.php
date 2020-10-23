@@ -1,25 +1,33 @@
-<div class="modal-header">
-	<h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	  <span aria-hidden="true">&times;</span>
-	</button>
-</div>
-<div class="modal-body">
-	@if($cart->products->isNotEmpty())
-		@foreach($cart->products as $itemProduct)
-			<div class="row">
-				<div class="col-4">
-					<img src="{{asset($itemProduct->getImg())}}">
-				</div>
+@extends('layouts.app')
 
-				<div class="col-6">
-					{{$itemProduct->getName()}}
-				</div>
+
+@section('breadcrups')
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Главная</a></li>
+
+					<li class="breadcrumb-item active" aria-current="page">Корзина</li>					
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+@endsection
+
+@section('content')
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="h2 section-title">
+				Корзина
 			</div>
-		@endforeach
-	@endif
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary">Save changes</button>
-</div>
+		</div>
+	</div>
+
+	<div class="row " id="cart-content">	
+			@include('front.cart.cartRow')
+	</div>
+@endsection

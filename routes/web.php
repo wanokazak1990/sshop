@@ -20,10 +20,11 @@ Route::group([],function(){
 });
 
 Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],function(){
-    Route::get('get','CartController@get')->name('cart.get');
+    Route::match(['get','post'],'/','CartController@get')->name('cart.get');
     Route::post('add/{product}','CartController@add')->name('cart.add');
     Route::post('del/{product}','CartController@delete')->name('cart.del');
     Route::get('/total','CartController@total')->name('cart.total');
+    Route::get('/clear','CartController@clear')->name('cart.clear');
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){

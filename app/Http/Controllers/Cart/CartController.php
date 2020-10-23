@@ -19,22 +19,25 @@ class CartController extends Controller
     	$cart->delete($product);
     }
 
-    public function get(Cart $cart)
+    public function get(Request $request,Cart $cart)
     {
-    	return response()->json([
-			'content'=> view('front.cart.cart',compact('cart'))->render()
-		]);
+    	if($request->isMethod('get'))
+    		return view('front.cart.cart',compact('cart'))->render();
+    	elseif($request->isMethod('post'))
+    		return response()->json([
+    			'content'=>view('front.cart.cartRow',compact('cart'))->render()
+    		]);
     }
 
-    public function clear()
+    public function clear(Cart $cart)
     {
-
+    	$cart->clear();
     }
 
     public function total(Cart $cart)
     {
     	return response()->json([
-    		'total'=>$cart->totalPrice(),
+    		'total'=>$cart->formatTotal(),
     		'count'=>$cart->fullCount()
     	]);
     }

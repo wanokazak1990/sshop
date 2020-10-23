@@ -85,7 +85,7 @@
 
     <ul class="navbar-nav ">
       <li class="nav-item ">
-        <a class="nav-link cart" data-url="{{route('cart.get')}}">
+        <a class="nav-link cart" href="{{route('cart.get')}}">
           <i class="fa fa-shopping-cart"></i> 
           Корзина
           <span class="badge badge-pill badge-success"></span>

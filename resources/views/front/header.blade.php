@@ -61,17 +61,17 @@
 	<div class="row">
 		<div class="container py-4">
 			<div class="row d-flex align-items-center">
-				<div class="col-3 logo">
+				<div class="col-2 logo">
 					<img src="{{asset('storage/logo/logo.png')}}">
 				</div>
 
 				<div class="col-5">
-					<div class="h1 m-0">8 (800) 222-04-18</div>
+					<div class="h4 m-0">8 (800) 222-04-18</div>
 
 					<div class="">Пнд-Вск с 09:00 до 18:00 по МСК</div>
 				</div>
 
-				<div class="col-4">
+				<div class="col-5">
 
 				</div>
 			</div>

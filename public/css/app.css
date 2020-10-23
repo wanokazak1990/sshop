@@ -13939,6 +13939,7 @@ a.text-dark:focus {
 
 body {
   font-family: "Roboto", sans-serif;
+  background: #eee;
 }
 
 .section-title {
@@ -14036,8 +14037,8 @@ body {
   width: 90%;
 }
 
-.bg-light {
-  background: #fff;
+.bg-eee {
+  background: #eee;
 }
 
 .my-menu {
@@ -14204,7 +14205,7 @@ body {
 
 .banner {
   padding: 0px 0px;
-  /*background: url('/images/banner_back.jpg');*/
+  background: #fff;
   overflow: hidden;
 }
 

@@ -28,6 +28,6 @@
 	</div>
 
 	<div class="row " id="cart-content">	
-			@include('front.cart.cartRow')
+		@include('front.cart.cartRow')
 	</div>
 @endsection

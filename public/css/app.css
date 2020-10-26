@@ -1,7 +1,12 @@
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;
+@charset "UTF-8";
 
-300&display=swap);@charset "UTF-8";
+/*!
+ *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
 
+/* FONT PATH
+ * -------------------------- */
 
 @font-face {
   font-family: "FontAwesome";
@@ -8261,7 +8266,7 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #999;
+  color: #3490dc;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
@@ -8294,8 +8299,8 @@ input[type=button].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #fc5871;
-  border-color: #fc5871;
+  background-color: #3490dc;
+  border-color: #3490dc;
 }
 
 .page-item.disabled .page-link {
@@ -13939,7 +13944,7 @@ a.text-dark:focus {
 
 body {
   font-family: "Roboto", sans-serif;
-  background: #eee;
+  background: #fff;
 }
 
 .section-title {

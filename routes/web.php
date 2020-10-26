@@ -27,6 +27,11 @@ Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],functi
     Route::get('/clear','CartController@clear')->name('cart.clear');
 });
 
+Route::group(['prefix'=>'order','namespace'=>'Order','middleware'=>'Cart'],function(){
+	Route::get('create','OrderController@create')->name('order.create');
+	Route::post('store','OrderController@store')->name('order.store');
+});
+
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 	Route::resource('categories', 'CategoryController');

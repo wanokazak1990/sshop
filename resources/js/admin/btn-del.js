@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$('.btn-del').on('click',function(){
 		var button = $(this)
 		var url = $(this).attr('data-url')
@@ -32,4 +32,4 @@ $(document).ready(function(){
 			console.log(error)
 		})
 	})
-})
+})*/

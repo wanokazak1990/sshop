@@ -27,8 +27,9 @@
 		</div>
 		
 		
-		@isset($product)
+		
 		<div class="parameters">
+		@isset($product)
 		@foreach($parameters as $param)
 			<?php
 				$test = ($param->values->first(function ($item,$key) use($product){					
@@ -56,8 +57,9 @@
 			</div>
 			
 		@endforeach
-		</div>
 		@endisset
+		</div>
+		
 		
 	</div>
 

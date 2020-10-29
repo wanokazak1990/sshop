@@ -15,6 +15,9 @@ body{
 .hovered:hover{
 	background: #ddd;
 }
+.breadcrumb{
+	background: #fff;
+}
 
 .file_wraper .form-group{padding:1em;margin:1em;font-size:0.7rem;}
 .file_wraper input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none;display:none;}

@@ -13,6 +13,16 @@ $(document).ready(function(){
 		}
 	});
 
+	$(document).on('click','.btn-clear',function(){
+		var button = $(this)
+		var block = button.closest('.row')
+		var input = block.find('input')
+		if(block.hasClass('default-val'))
+			input.val('')
+		else
+			block.remove()
+	})
+
 	$('.append-val').on('click',function(){
 		var added = $('.default-val').clone().removeClass('default-val')
 		added.find('input').val('')

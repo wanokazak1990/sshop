@@ -32,6 +32,13 @@
 				<label>Значения параметра</label>
 			</div>
 		</div>
+
+		<div class="row pb-4">
+			<div class="col-12">
+				<button type="button" class="btn btn-block btn-primary fa fa-plus append-val"></button>
+			</div>
+		</div>
+
 		<div class="values-content">
 			
 			@if( isset($parameter) && $parameter->id)
@@ -57,11 +64,7 @@
 			</div>
 		</div>
 
-		<div class="row pt-4">
-			<div class="col-12">
-				<button type="button" class="btn btn-block btn-primary fa fa-plus append-val"></button>
-			</div>
-		</div>
+		
 	</div>
 </div>
 

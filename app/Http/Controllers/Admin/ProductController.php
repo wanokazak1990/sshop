@@ -58,6 +58,18 @@ class ProductController extends Controller
     public function store(ProductRequest $request, UploadImage $image)
     {
         $product = Product::create($request->only($this->getEditableColumns()));
+        
+        if($request->has('values'))
+        {
+            Property::where('product_id',$product->id)->delete();
+            foreach ($request->values as $key => $value) 
+                if($value)
+                    Property::create([
+                        'product_id'=>$product->id,
+                        'value_id'=>$value
+                    ]);
+        }
+
         $fileName = $image->prepare($product, $request->file('img'))
             ->setPathWithId()
             ->resolution(500,500)

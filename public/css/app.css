@@ -14353,23 +14353,27 @@ body {
   border-radius: 10px;
 }
 
-#cart-content img {
-  width: 90%;
-}
-
-#cart-content .h4 {
-  font-weight: 100;
+#cart-content {
   font-size: 1.2rem !important;
 }
 
+#cart-content img {
+  width: 80%;
+}
+
+#cart-content .h4 {
+  font-weight: 400;
+}
+
+#cart-content .h4 a {
+  color: #333;
+}
+
 #cart-content .desc {
-  font-size: 1;
   font-weight: 100;
 }
 
 #cart-content .total {
-  font-size: 1.2rem;
-  font-weight: bold;
   white-space: nowrap;
 }
 

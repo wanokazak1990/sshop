@@ -30,4 +30,12 @@
 	<div class="row " id="cart-content">	
 		@include('front.cart.cartRow')
 	</div>
+
+	<div class="col-4">
+	<div class="check">
+		<div class=" bold">Итого: {{$cart->fullCount()}} товар(а) на {{$cart->formatTotal()}} руб.</div>
+		<button class="btn btn-block btn-danger mt-4" href="{{route('order.create')}}">Оформить заказ</button>
+	</div>
+</div>
+
 @endsection

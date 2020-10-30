@@ -39,7 +39,7 @@
 		@if(!empty($products))
 		<div class="row">
 			<div class="col-3">
-
+				<div> 
 				@if($parameters)
 					{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
 					@foreach($parameters as $itemParam)
@@ -54,6 +54,7 @@
 
 					{{Form::close()}}
 				@endif
+				</div>
 			</div>
 
 			<div class="col-9">

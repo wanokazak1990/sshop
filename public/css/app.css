@@ -14347,10 +14347,9 @@ body {
 }
 
 .selectus select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: 10px;
+  display: block;
+  width: 100%;
+  height: 40px;
 }
 
 #cart-content {
@@ -14375,6 +14374,7 @@ body {
 
 #cart-content .total {
   white-space: nowrap;
+  font-size: 1.6rem;
 }
 
 #cart-content .modal-header {
@@ -14396,7 +14396,7 @@ body {
   padding-right: 0px;
 }
 
-.order-data input,
+.order-data input[type=text],
 .order-data textarea {
   border: 2px solid #fff;
   background: #fff;
@@ -14404,6 +14404,11 @@ body {
 
 .order-data textarea {
   height: 150px;
+}
+
+.consent label,
+.consent input {
+  display: inline-block;
 }
 
 .action-slider img {

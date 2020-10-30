@@ -39,13 +39,13 @@
 		@if(!empty($products))
 		<div class="row">
 			<div class="col-3">
-				<div> 
+				<div class=""> 
 				@if($parameters)
 					{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
 					@foreach($parameters as $itemParam)
 						<div class="selectus">
 							{{Form::label($itemParam->slug,$itemParam->name)}}
-							{{Form::select($itemParam->slug,$itemParam->values->pluck('value','id'),Request::get($itemParam->slug),['class'=>'form-control mb-3 ','placeholder'=>'Укажите значение'])}}
+							{{Form::select($itemParam->slug,$itemParam->values->pluck('value','id'),Request::get($itemParam->slug),['class'=>' mb-3 ','placeholder'=>'Укажите значение'])}}
 
 						</div>
 					@endforeach

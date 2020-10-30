@@ -32,7 +32,7 @@
 				</div>
 			</div>
 
-			<div class="col total text-right">
+			<div class="col text-right">
 				<span class="itemprice">{{$itemProduct->formatTotal()}}</span>р.
 			</div>
 
@@ -51,7 +51,7 @@
 	<div class="col-8"></div>
 	<div class="col-4 text-right">
 		<div class="">
-			<div class="">Итого: {{$cart->formatTotal()}}р.</div>		
+			<div class="total">Итого: {{$cart->formatTotal()}}р.</div>		
 		</div>
 	</div>
 </div>

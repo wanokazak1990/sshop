@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+
 	//ОПИСАНИЕ ПАРАМЕТРОВ ПРОДУКТОВ ОДНОЙ ВЫСОТЫ (МАКСИМАЛЬНОЙ)
 	var height = 0
 	$('.card .desc').each(function(){
@@ -28,3 +30,4 @@ $(document).ready(function(){
 		})
 	}
 })
+

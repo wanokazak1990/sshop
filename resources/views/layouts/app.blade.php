@@ -19,7 +19,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     <meta name="total-cart-price" content="{{route('cart.total') }}">
 </head>
 <body>
@@ -36,11 +35,14 @@
         </main>
 
         
-        <div class="container-fluid footer" style="height: 400px;background-color: #333;">
+        <div class="container-fluid footer" style="height: 400px;background-color: #000;">
             @yield('footer')
         </div>
         
 
         @include('front.modal')
+
+        
+        
 </body>
 </html>

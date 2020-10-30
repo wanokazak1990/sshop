@@ -48,7 +48,8 @@
 
 
 <div class="row py-3">
-	<div class="col-4">
+	<div class="col-8"></div>
+	<div class="col-4 text-right">
 		<div class="">
 			<div class="">Итого: {{$cart->formatTotal()}}р.</div>		
 		</div>

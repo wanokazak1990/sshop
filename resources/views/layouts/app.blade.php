@@ -31,7 +31,16 @@
             </div>
             @yield('breadcrups')
             @yield('content')
+
+            
         </main>
+
+        
+        <div class="container-fluid footer" style="height: 400px;background-color: #333;">
+            @yield('footer')
+        </div>
+        
+
         @include('front.modal')
 </body>
 </html>

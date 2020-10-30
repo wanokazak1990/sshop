@@ -25,7 +25,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid {{isset($bg_color) ? $bg_color : '' }}">
+<div class="pb-5 container-fluid {{isset($bg_color) ? $bg_color : '' }}">
 	<div class="container" >
 		
 		<div class="row">

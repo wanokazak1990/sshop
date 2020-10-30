@@ -29,9 +29,9 @@ class CartController extends Controller
     		]);
     }
 
-    public function clear(Cart $cart)
+    public function clear(Request $request,Cart $cart,Product $product)
     {
-    	$cart->clear();
+    	$cart->clear($product->id);        
     }
 
     public function total(Cart $cart)

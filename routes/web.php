@@ -24,7 +24,7 @@ Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],functi
     Route::post('add/{product}','CartController@add')->name('cart.add');
     Route::post('del/{product}','CartController@delete')->name('cart.del');
     Route::get('/total','CartController@total')->name('cart.total');
-    Route::get('/clear','CartController@clear')->name('cart.clear');
+    Route::post('/clear/{product}','CartController@clear')->name('cart.clear');
 });
 
 Route::group(['prefix'=>'order','namespace'=>'Order','middleware'=>'Cart'],function(){

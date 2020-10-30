@@ -85,9 +85,12 @@ Class Cart
 		return number_format($this->totalPrice(),0,'',' ');
 	}
 
-	public function clear()
+	public function clear($id)
 	{
-		Session::put('cart','');
+		$item = $this->products->has($id);
+		if($item)
+			$this->products->forget($id);
+		$this->save();
 	}
 
 	public static function checkProduct($id)

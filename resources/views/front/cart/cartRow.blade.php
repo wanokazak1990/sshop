@@ -1,4 +1,4 @@
-<div class="col-12"> 
+
 @if($cart->products->isNotEmpty())
 	@foreach($cart->products as $itemProduct)
 		<div class="cart-row row product d-flex align-items-center pb-2 mb-2 {{ (!$loop->last)?'border-bottom':''}}" data-id="{{$itemProduct->getId()}}">
@@ -37,10 +37,20 @@
 			</div>
 
 			<div class="col-1">
-				<i class="fa fa-close"></i>
+				<button class="btn cart-control" data-url="{{route('cart.clear',$itemProduct->getProduct())}}" data-method="delete">
+					<i class="fa fa-close"></i>
+				</button>
 			</div>
 
 		</div>
 	@endforeach
 @endif
+
+
+<div class="row py-3">
+	<div class="col-4">
+		<div class="">
+			<div class="">Итого: {{$cart->formatTotal()}}р.</div>		
+		</div>
+	</div>
 </div>

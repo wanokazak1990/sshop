@@ -19,6 +19,8 @@ Route::group([],function(){
     Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
 });
 
+
+//CART
 Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],function(){
     Route::match(['get','post'],'/','CartController@get')->name('cart.get');
     Route::post('add/{product}','CartController@add')->name('cart.add');
@@ -27,11 +29,13 @@ Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],functi
     Route::post('/clear/{product}','CartController@clear')->name('cart.clear');
 });
 
-Route::group(['prefix'=>'order','namespace'=>'Order','middleware'=>'Cart'],function(){
-	Route::get('create','OrderController@create')->name('order.create');
-	Route::post('store','OrderController@store')->name('order.store');
+//ORDER
+Route::group(['prefix'=>'order','namespace'=>'Order','middleware'=>'cart'],function(){
+	Route::post('/store','OrderController@store')->name('order.store');
 });
 
+
+//ADMIN
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 	Route::resource('categories', 'CategoryController');
@@ -48,4 +52,4 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'MainController@index')->name('home');

@@ -42,7 +42,13 @@
 			</div>
 		</div>
 
-		{{Form::open()}}
+		
+		{{Form::open([
+			'route'=>'order.store',
+            'method' => 'POST'
+        ])}}
+
+		
 		<div class="row order-data">
 			
 			<div class="col-8">

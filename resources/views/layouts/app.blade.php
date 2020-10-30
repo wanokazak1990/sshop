@@ -35,7 +35,7 @@
         </main>
 
         
-        <div class="container-fluid footer" style="height: 400px;background-color: #000;">
+        <div class="container-fluid footer mt-5" style="height: 400px;background-color: #000;">
             @yield('footer')
         </div>
         

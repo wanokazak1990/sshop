@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="h2 section-title">
-					{{ (isset($category)) ? $category->name : '' }}
+					{{ (isset($title)) ? $title : config('app.name') }}
 				</div>
 			</div>
 		</div>

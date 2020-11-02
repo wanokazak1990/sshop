@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('breadcrups')
+@section('breadcrubs')
+@isset($breadCrumbs)
 <div class="container">
 	<div class="row">
 		<div class="col-12">
@@ -8,8 +9,8 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/">Главная</a></li>
 
-					@foreach($categoryChain as $crumb)
-						<li class="breadcrumb-item"><a href="{{route('view.catalog',$crumb)}}">{{$crumb->name}}</a></li>				
+					@foreach($breadCrumbs as $crumb)
+						<li class="breadcrumb-item"><a href="{{route('view.catalog',$crumb->getLink())}}">{{$crumb->getName()}}</a></li>				
 					@endforeach
 					<li class="breadcrumb-item active" aria-current="page">{{$product->name}}</li>
 					
@@ -18,6 +19,7 @@
 		</div>
 	</div>
 </div>
+@endisset
 @endsection
 
 @section('content')

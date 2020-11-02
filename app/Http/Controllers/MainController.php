@@ -20,10 +20,11 @@ class MainController extends Controller
     	return view('front.main', compact('banners','newProducts','hitProducts','saleProducts'));
     }
 
-    public function show(Product $product)
+    public function show(Product $product, BreadCrumbs $breadCrumbs)
     {
     	$categoryChain = $product->category->getChainToParent($product->category_id)->reverse();
-    	return view('front.product', compact('product','categoryChain'));
+        $breadCrumbs = $breadCrumbs->set($categoryChain->pluck('name','slug'));
+    	return view('front.product', compact('product','categoryChain','breadCrumbs'));
     }
 
     public function catalog(Request $request, Category $category, BreadCrumbs $breadCrumbs,$products='', $categories='',$parameters='')
@@ -51,17 +52,18 @@ class MainController extends Controller
         }
     	else
     		$categories = $category->children;
-    	return view('front.catalog',compact('products','category','breadCrumbs','categories','parameters'));
+        $title = $category->name;
+    	return view('front.catalog',compact('products','category','breadCrumbs','categories','parameters','title'));
     }
 
     public function search(Request $request, BreadCrumbs $breadCrumbs, $products = '', $categories = '', $parameters = '')
     {
-        
+        $title = 'Поиск';
         if($request->has('articule') && $request->articule!='')
         {
             $products = Product::where('articule','like','%'.$request->articule.'%')->paginate(12);
             $breadCrumbs = $breadCrumbs->set([route('view.search')=>'Поиск по номеру: '.$request->articule]);
         }
-        return view('front.catalog',compact('products','breadCrumbs'));
+        return view('front.catalog',compact('products','breadCrumbs','title'));
     }
 }

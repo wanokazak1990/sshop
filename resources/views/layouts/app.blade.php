@@ -28,7 +28,7 @@
                 @include('front.header')
                 @include('front.navbar')
             </div>
-            @yield('breadcrups')
+            @yield('breadcrubs')
             @yield('content')
 
             

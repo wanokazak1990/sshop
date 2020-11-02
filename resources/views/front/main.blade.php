@@ -2,7 +2,8 @@
 
 @section('content')
 				
-				@include('front.banner')		
+				@include('front.banner')
+				@include('front.searchnumber')		
 				@include('front.products',['blockTitle'=>'Новинки','count'=>8, 'products' => $newProducts])
 				@include('front.products',['blockTitle'=>'Хиты продаж','count'=>8, 'products' => $hitProducts])
 				@include('front.slider.sale',['blockTitle'=>'Скидки', 'products' => $saleProducts])

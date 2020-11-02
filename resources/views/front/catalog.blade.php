@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('breadcrups')
+@section('breadcrubs')
+@isset($breadCrumbs)
 <div class="container">
 	<div class="row">
 		<div class="col-12">
@@ -10,9 +11,9 @@
 
 					@foreach($breadCrumbs as $crumb)
 						@if($loop->last)
-							<li class="breadcrumb-item active" aria-current="page">{{$crumb->name}}</li>
+							<li class="breadcrumb-item active" aria-current="page">{{$crumb->getName()}}</li>
 						@else
-							<li class="breadcrumb-item"><a href="{{route('view.catalog',$crumb)}}">{{$crumb->name}}</a></li>
+							<li class="breadcrumb-item"><a href="{{$crumb->getLink()}}">{{$crumb->getName()}}</a></li>
 						@endif
 					@endforeach
 
@@ -22,6 +23,7 @@
 		</div>
 	</div>
 </div>
+@endisset
 @endsection
 
 @section('content')
@@ -31,7 +33,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="h2 section-title">
-					{{$category->name}}
+					{{ (isset($category)) ? $category->name : '' }}
 				</div>
 			</div>
 		</div>
@@ -40,7 +42,7 @@
 		<div class="row">
 			<div class="col-3">
 				<div class=""> 
-				@if($parameters)
+				@isset($parameters)
 					{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
 					@foreach($parameters as $itemParam)
 						<div class="selectus">
@@ -53,7 +55,7 @@
 					{{Form::submit('Найти',['class'=>'btn btn-block btn-dark mt-3'])}}
 
 					{{Form::close()}}
-				@endif
+				@endisset
 				</div>
 			</div>
 
@@ -68,7 +70,7 @@
 
 				<div class="row">
 					<div class="col-12">
-						{{$products->appends(Request::input())->links()}}
+						{{ (isset($products)) ? $products->appends(Request::input())->links() : ''}}
 					</div>
 				</div>
 			</div>

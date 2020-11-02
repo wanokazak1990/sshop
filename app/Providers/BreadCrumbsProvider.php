@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Providers;
-
+use App\Services\BreadCrumbs\BreadCrumbs;
 use Illuminate\Support\ServiceProvider;
-use App\Services\Cart\Cart;
 
-class CartProvider extends ServiceProvider
+class BreadCrumbsProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,8 +13,8 @@ class CartProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Cart::class, function ($app) {
-           return new Cart();
+        $this->app->singleton(BreadCrumbs::class, function ($app) {
+           return new BreadCrumbs();
         });
     }
 

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Parameter;
+use App\Services\BreadCrumbs\BreadCrumbs;
 
 class MainController extends Controller
 {
@@ -25,9 +26,9 @@ class MainController extends Controller
     	return view('front.product', compact('product','categoryChain'));
     }
 
-    public function catalog(Request $request, Category $category, $products='', $categories='',$parameters='')
+    public function catalog(Request $request, Category $category, BreadCrumbs $breadCrumbs,$products='', $categories='',$parameters='')
     {
-    	$breadCrumbs = $category->getChainToParent($category->id)->reverse();
+    	$breadCrumbs = $breadCrumbs->set($category->getChainToParent($category->id)->reverse()->pluck('name','slug'));
     	if($category->final)
         {
             $parameters = Parameter::where('category_id',$category->id)->get();
@@ -51,5 +52,16 @@ class MainController extends Controller
     	else
     		$categories = $category->children;
     	return view('front.catalog',compact('products','category','breadCrumbs','categories','parameters'));
+    }
+
+    public function search(Request $request, BreadCrumbs $breadCrumbs, $products = '', $categories = '', $parameters = '')
+    {
+        
+        if($request->has('articule') && $request->articule!='')
+        {
+            $products = Product::where('articule','like','%'.$request->articule.'%')->paginate(12);
+            $breadCrumbs = $breadCrumbs->set([route('view.search')=>'Поиск по номеру: '.$request->articule]);
+        }
+        return view('front.catalog',compact('products','breadCrumbs'));
     }
 }

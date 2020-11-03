@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use Auth;
 
 class OrderController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
-    	echo "Заказ Оформлен";
+    	dump($request->input());
+    	$order = new Order();
+    	$order->fill($request->input());
+    	//$order->user_id = $user = 
+    	dump(auth()->user());
+    	dump($order);
     }
 }

@@ -3,10 +3,10 @@
 		<div class="col ">
 			<div style="background: repeating-linear-gradient(
   45deg,
-  #f5c800,
-  #f5c800 10px,
-  #c29e00 10px,
-  #c29e00 20px
+  #ff5c77,
+  #ff5c77 10px,
+  #ff294d 10px,
+  #ff294d 20px
 ); border-radius: 0 0 5px 5px; " class="p-3">
 				
 				<form method="GET" action="{{route('view.search')}}">
@@ -30,3 +30,6 @@
 		</div>
 	</div>
 </div>
+
+<?php 
+echo '0' == '';

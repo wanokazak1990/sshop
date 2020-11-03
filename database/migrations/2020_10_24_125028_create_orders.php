@@ -15,10 +15,16 @@ class CreateOrders extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('status_id');
-            $table->integer('manager_id');
+            $table->integer('user_id')->nullable();
+            $table->integer('status_id')->default(1);
+            $table->integer('manager_id')->nullable();
             $table->integer('price');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('email');
+            $table->string('phone');
+            $table->boolean('consent');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

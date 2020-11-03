@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 
-@section('breadcrups')
+@section('breadcrubs')
 <div class="container">
 	<div class="row">
 		<div class="col-12">
@@ -52,7 +52,14 @@
 		<div class="row order-data">
 			
 			<div class="col-8">
-				<div style="background-color: #dce0e0;padding: 30px;border-radius: 10px;">
+				<div style="padding: 30px;border-radius: 10px;background: repeating-linear-gradient(
+  45deg,
+  #e6e6e6,
+  #e6e6e6 10px,
+  #dcdcdc 10px,
+  #dcdcdc 20px
+);">				
+					@guest
 					<div class="row">
 						<div class="col" >
 							<div class="py-3">Имя<span>*</span></div>
@@ -71,6 +78,26 @@
 							{{Form::text('phone','',['class'=>'form-control','placeholder'=>'Телефон'])}}
 						</div>
 					</div>
+					@else
+					<div class="row">
+						<div class="col" >
+							<div class="py-3">Имя<span>*</span></div>
+							{{Form::text('firstname', Auth::user()->name,['class'=>'form-control','placeholder'=>'Имя'])}}
+
+							<div class="py-3">Фамилия<span>*</span></div>
+							{{Form::text('lastname', Auth::user()->name,['class'=>'form-control','placeholder'=>'Фамилия'])}}
+
+						</div>
+
+						<div class="col">
+							<div class="py-3">E-mail<span>*</span></div>
+							{{Form::text('email', Auth::user()->email,['class'=>'form-control','placeholder'=>'E-mail'])}}
+
+							<div class="py-3">Телефон<span>*</span></div>
+							{{Form::text('phone', Auth::user()->name,['class'=>'form-control','placeholder'=>'Телефон'])}}
+						</div>
+					</div>
+					@endguest
 
 					<div class="row">
 						<div class="col">

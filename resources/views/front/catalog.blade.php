@@ -10,7 +10,7 @@
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="/">Главная</a></li>
-
+						<li class="breadcrumb-item"><a href="{{route('view.catalog')}}">Каталог</a></li>
 						@foreach($breadCrumbs as $crumb)
 							@if($loop->last)
 								<li class="breadcrumb-item active" aria-current="page">{{$crumb->getName()}}</li>

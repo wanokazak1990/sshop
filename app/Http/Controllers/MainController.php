@@ -30,35 +30,40 @@ class MainController extends Controller
     public function catalog(Request $request, Category $category, BreadCrumbs $breadCrumbs,$products='', $categories='',$parameters='')
     {
     	$breadCrumbs = $breadCrumbs->set($category->getChainToParent($category->id)->reverse()->pluck('name','slug'));
-    	if($category->final)
+        if($category->id)
         {
-            $parameters = Parameter::where('category_id',$category->id)->get();
-
-    		$query = Product::select('products.*')->leftJoin('properties','products.id','=','properties.product_id')->where('category_id',$category->id);
-
-            $mas = [];
-            foreach ($parameters as $key => $itemParam) 
+        	if($category->final)
             {
-                if($request->has($itemParam->slug) && $request->get($itemParam->slug))
+                $parameters = Parameter::where('category_id',$category->id)->get();
+
+        		$query = Product::select('products.*')->leftJoin('properties','products.id','=','properties.product_id')->where('category_id',$category->id);
+
+                $mas = [];
+                foreach ($parameters as $key => $itemParam) 
                 {
-                    $mas[] = $request->get($itemParam->slug);
+                    if($request->has($itemParam->slug) && $request->get($itemParam->slug))
+                    {
+                        $mas[] = $request->get($itemParam->slug);
+                    }
                 }
+                if($mas)
+                    $query->whereIn('properties.value_id',$mas)->havingRaw("COUNT(products.id) = ".count($mas));
+                
+                $products = $query->groupBy('products.id')->paginate(12);
+                
             }
-            if($mas)
-                $query->whereIn('properties.value_id',$mas)->havingRaw("COUNT(products.id) = ".count($mas));
-            
-            $products = $query->groupBy('products.id')->paginate(12);
-            
+        	else
+        		$categories = $category->children;
         }
-    	else
-    		$categories = $category->children;
+        else
+            $categories = Category::where('parent_id','<',1)->get();
+
         $title = $category->name;
     	return view('front.catalog',compact('products','category','breadCrumbs','categories','parameters','title'));
     }
 
-    public function search(Request $request, BreadCrumbs $breadCrumbs, $products = '', $categories = '', $parameters = '')
-    {
-        $title = 'Поиск';
+    public function search(Request $request, BreadCrumbs $breadCrumbs, $products = '', $categories = '', $parameters = '',$title = 'Поиск')
+    {        
         if($request->has('articule') && $request->articule!='')
         {
             $products = Product::where('articule','like','%'.$request->articule.'%')->paginate(12);

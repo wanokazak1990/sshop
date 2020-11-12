@@ -27,6 +27,7 @@
             <div class="header-main" >
                 @include('front.header')
                 @include('front.navbar')
+                @include('front.searchnumber')
             </div>
             @yield('breadcrubs')
             @yield('content')

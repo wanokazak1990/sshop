@@ -1,32 +1,35 @@
 @extends('layouts.app')
 
+
+
 @section('breadcrubs')
-@isset($breadCrumbs)
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/">Главная</a></li>
+	@isset($breadCrumbs)
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/">Главная</a></li>
+						<li class="breadcrumb-item"><a href="{{route('view.catalog')}}">Каталог</a></li>
+						@foreach($breadCrumbs as $crumb)
+							@if($loop->last)
+								<li class="breadcrumb-item active" aria-current="page">{{$crumb->getName()}}</li>
+							@else
+								<li class="breadcrumb-item"><a href="{{$crumb->getLink()}}">{{$crumb->getName()}}</a></li>
+							@endif
+						@endforeach
 
-					@foreach($breadCrumbs as $crumb)
-						@if($loop->last)
-							<li class="breadcrumb-item active" aria-current="page">{{$crumb->getName()}}</li>
-						@else
-							<li class="breadcrumb-item"><a href="{{$crumb->getLink()}}">{{$crumb->getName()}}</a></li>
-						@endif
-					@endforeach
-
-					
-				</ol>
-			</nav>
+						
+					</ol>
+				</nav>
+			</div>
 		</div>
 	</div>
-</div>
-@endisset
+	@endisset
 @endsection
 
 @section('content')
+
 <div class="pb-5 container-fluid {{isset($bg_color) ? $bg_color : '' }}">
 	<div class="container" >
 		
@@ -39,42 +42,43 @@
 		</div>
 
 		@if(!empty($products))
-		<div class="row">
-			<div class="col-3">
-				<div class=""> 
-				@isset($parameters)
-					{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
-					@foreach($parameters as $itemParam)
-						<div class="selectus">
-							{{Form::label($itemParam->slug,$itemParam->name)}}
-							{{Form::select($itemParam->slug,$itemParam->values->pluck('value','id'),Request::get($itemParam->slug),['class'=>' mb-3 ','placeholder'=>'Укажите значение'])}}
+			<div class="row">
+				<div class="col-3">
+					<div class=""> 
+						@isset($parameters)
+							{{Form::open(['method'=>'GET','route'=>['view.catalog',$category]])}}
+							@foreach($parameters as $itemParam)
+								<div class="selectus">
+									{{Form::label($itemParam->slug,$itemParam->name)}}
+									{{Form::select($itemParam->slug,$itemParam->values->pluck('value','id'),Request::get($itemParam->slug),['class'=>' mb-3 ','placeholder'=>'Укажите значение'])}}
 
+								</div>
+							@endforeach
+
+							{{Form::submit('Найти',['class'=>'btn btn-block btn-dark mt-3'])}}
+
+							{{Form::close()}}
+						@endisset			
+
+					</div>
+				</div>
+
+				<div class="col-9">
+					<div class="row row-cols-1 row-cols-md-3">
+					@if($products->isNotEmpty())
+						@foreach($products as $itemProduct)
+							@include('front.itemproduct')
+						@endforeach
+					@endif
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							{{ (isset($products)) ? $products->appends(Request::input())->links() : ''}}
 						</div>
-					@endforeach
-
-					{{Form::submit('Найти',['class'=>'btn btn-block btn-dark mt-3'])}}
-
-					{{Form::close()}}
-				@endisset
-				</div>
-			</div>
-
-			<div class="col-9">
-				<div class="row row-cols-1 row-cols-md-3">
-				@if($products->isNotEmpty())
-					@foreach($products as $itemProduct)
-						@include('front.itemproduct')
-					@endforeach
-				@endif
-				</div>
-
-				<div class="row">
-					<div class="col-12">
-						{{ (isset($products)) ? $products->appends(Request::input())->links() : ''}}
 					</div>
 				</div>
 			</div>
-		</div>
 		@endif
 
 		@if(!empty($categories))

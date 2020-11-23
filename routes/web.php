@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([],function(){
 	Route::get('/', 'MainController@index')->name('main');
 	Route::get('/view/product/{product}','MainController@show')->name('view.product');
-    Route::get('catalogs/{category}','MainController@catalog')->name('view.catalog');
+    Route::get('catalogs/{category?}','MainController@catalog')->name('view.catalog');
     Route::get('/search','MainController@search')->name('view.search');
 });
 
@@ -33,6 +33,7 @@ Route::group(['prefix'=>'cart','namespace'=>'Cart','middleware'=>'cart' ],functi
 //ORDER
 Route::group(['prefix'=>'order','namespace'=>'Order','middleware'=>'cart'],function(){
 	Route::post('/store','OrderController@store')->name('order.store');
+	Route::get('/show/{id}', 'OrderController@show')->name('order.show');
 });
 
 

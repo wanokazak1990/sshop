@@ -8,7 +8,7 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/">Главная</a></li>
-
+					<li class="breadcrumb-item"><a href="{{route('view.catalog')}}">Каталог</a></li>
 					@foreach($breadCrumbs as $crumb)
 						<li class="breadcrumb-item"><a href="{{route('view.catalog',$crumb->getLink())}}">{{$crumb->getName()}}</a></li>				
 					@endforeach

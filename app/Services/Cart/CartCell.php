@@ -3,7 +3,7 @@ namespace App\Services\Cart;
 use App\Models\Product;
 Class CartCell
 {
-	private $id = null;
+	private $product_id = null;
 	private $name = null;
 	private $price = null;
 	private $count = null;
@@ -12,7 +12,7 @@ Class CartCell
 	private $product = null;
 	public function __construct(Product $product)
 	{
-		$this->id = $product->id;
+		$this->product_id = $product->id;
 		$this->name = $product->name;
 		$this->count = 1;
 		$this->price = $product->price;
@@ -24,7 +24,7 @@ Class CartCell
 	{
 		if($this->product)
 			return $this->product;
-		$product = Product::find($this->id);
+		$product = Product::find($this->product_id);
 		$this->product = $product;
 		return $this->product;
 	}
@@ -35,7 +35,7 @@ Class CartCell
 	}
 	public function getImg()
 	{
-		return 'storage/products/'.$this->id.'/'.$this->img;
+		return 'storage/products/'.$this->product_id.'/'.$this->img;
 	}
 
 	public function getName()
@@ -55,7 +55,7 @@ Class CartCell
 
 	public function getId()
 	{
-		return $this->id;
+		return $this->product_id;
 	}
 
 	public function append()

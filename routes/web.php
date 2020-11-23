@@ -50,6 +50,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function(){
     });
 });
 
+Route::group(['namespace'=>'Parser','prefix'=>'parser'], function(){
+    Route::get('wiper', 'WiperController@parsing')->name('wiper.parser');
+});
+
 
 Auth::routes();
 
